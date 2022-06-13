@@ -1,2 +1,2 @@
-# sistema_de_garantia_da_qualidade_back
-Back-end desenvolvido em node utilizando knex para banco de dados relacional, voltados para o gerenciamento da qualidade tutiplast. 
+# MFS_TryOut_Back_End_Clean_Architecture
+Software Solicitação de Tryout - MFS desenvolvido pelo Tutilabs utilizando tecnologias como Node - TypeScript, Express, Prisma ORM.
