@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model feedstock {
+  id                Int               @id @default(autoincrement()) @db.UnsignedInt
+  code              String            @db.VarChar(50)
+  description       String            @db.VarChar(250)
+  id_injection_process Int            @db.UnsignedInt
+  injection_process injection_process @relation(fields: [id_injection_process], references: [id])            
+}
+
+model injection_process {
+  id         Int          @id @default(autoincrement()) @db.UnsignedInt
+  id_tryout  Int          @db.UnsignedInt
+  tryout     tryout       @relation(fields: [id_tryout], references: [id], map: "Injection_Process_id_tryout_fkey")
+  feedstocks  feedstock[]
+  labor      labor[]
+  molde      molde[]
+  machine    machine[]
+  peripheral peripheral[]
+
+  @@index([id_tryout], map: "Injection_Process_id_tryout_fkey")
+}
+
+model labor {
+  id                Int               @id @default(autoincrement()) @db.UnsignedInt
+  description       String            @db.VarChar(250)
+  amount            Int               @db.UnsignedInt 
+  id_process        Int               @db.UnsignedInt
+  injection_process injection_process @relation(fields: [id_process], references: [id], map: "Labor_id_process_fkey")
+
+  @@index([id_process], map: "Labor_id_process_fkey")
+}
+
+model machine {
+  id                Int               @id @default(autoincrement()) @db.UnsignedInt
+  model             String            @db.VarChar(50)
+  id_process        Int               @db.UnsignedInt
+  injection_process injection_process @relation(fields: [id_process], references: [id], map: "Machine_id_process_fkey")
+
+  @@index([id_process], map: "Machine_id_process_fkey")
+}
+
+model molde {
+  id                Int               @id @default(autoincrement()) @db.UnsignedInt
+  number_cavity     Int               @db.UnsignedInt
+  mold              String            @db.VarChar(250)
+  id_process        Int               @db.UnsignedInt
+  injection_process injection_process @relation(fields: [id_process], references: [id], map: "Molde_id_process_fkey")
+  @@index([id_process], map: "Molde_id_process_fkey")
+}
+
+model peripheral {
+  id                Int               @id @default(autoincrement()) @db.UnsignedInt
+  peripheral        Json
+  id_process        Int               @db.UnsignedInt
+  injection_process injection_process @relation(fields: [id_process], references: [id], onDelete: Cascade, map: "FK_proccess_injection_peripheral")
+
+  @@index([id_process], map: "id_process")
+}
+
+model process {
+  id           Int    @id @default(autoincrement()) @db.UnsignedInt
+  name_process String @db.VarChar(250)
+}
+
+model status {
+  id     Int      @id @unique(map: "id") @default(autoincrement()) @db.UnsignedInt
+  status String   @default("0") @db.VarChar(50)
+  tryout tryout[]
+}
+
+model tryout {
+  id                  Int                 @id @unique(map: "id") @default(autoincrement()) @db.UnsignedInt
+  code_sap            String              @db.VarChar(250)
+  product_description String              @db.VarChar(250)
+  client              String              @db.VarChar(250)
+  date                DateTime?           @db.Date
+  reason              Int                 @db.UnsignedInt
+  id_status           Int                 @db.UnsignedInt
+  status              status              @relation(fields: [id_status], references: [id], map: "Tryout_id_status_fkey")
+  injection_process   injection_process[]
+
+  @@index([id_status], map: "Tryout_id_status_fkey")
+}
