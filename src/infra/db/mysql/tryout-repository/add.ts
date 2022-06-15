@@ -51,7 +51,6 @@ export class AddTryoutMysqlRepository implements AddTryoutRepository{
               }
             }
           })
-       
           const FindAllTryout = await PrismaHelper.prisma.tryout.findMany({
             where: { id: result.id },
             include: {
