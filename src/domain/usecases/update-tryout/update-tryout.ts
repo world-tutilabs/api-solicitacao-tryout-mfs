@@ -33,6 +33,6 @@ export interface UpdateTryoutModel {
   status: number
   InjectionProcess: InjectionProcess 
 }
-export interface UpdateTryout{
-  update (id: number,tryout: UpdateTryoutModel): Promise<TryoutModel>
+export interface UpdateTryout {
+  update (id: number, tryout: UpdateTryoutModel): Promise<TryoutModel>
 }
