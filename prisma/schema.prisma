@@ -8,24 +8,25 @@ datasource db {
 }
 
 model HomologationStatus {
-  id          Int    @id @default(autoincrement())
-  description String @db.VarChar(250)
-
+  id           Int           @id @default(autoincrement())
+  description  String        @db.VarChar(250)
+  homologation Homologation?
 
   @@map("homologation_status")
 }
 
 model Homologation {
+  id                     String             @id @default(uuid())
+  fk_solicitation        String             @unique
+  created_user           Json
+  created_at             DateTime
+  homologation_user      Json
+  homologation_at        DateTime
+  comment                String
+  fk_homologation_status Int                @unique
+  status                 HomologationStatus @relation(fields: [fk_homologation_status], references: [id])
+  solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
 
-  id              String             @id @default(uuid())
-  fk_solicitation String             @unique
-  solicitation    SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
-  created_user Json
-  created_at DateTime 
-  homologation_user Json
-  homologation_at DateTime 
-  comment          String
-  
   @@map("homologation")
 }
 
@@ -48,53 +49,45 @@ model SolicitationTryout {
 model InjectionProcess {
   id              String             @default(uuid())
   id_tryout       String             @unique
-  tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id])
   proc_technician Json
   quantity        Int
-  feedstocks      Feedstock?
-  labor           Labor?
-  molde           Mold?
-  machine         Machine?
+  tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id])
 
-
+  @@index([id_tryout], map: "id_tryou")
   @@map("injection_process")
 }
 
 model Feedstock {
-  id                   String           @id @default(uuid())
-  code                 String           @db.VarChar(50)
-  description          String           @db.VarChar(250)
-  id_injection_process String           @unique
-  injection_process    InjectionProcess @relation(fields: [id_injection_process], references: [id])
+  id                   String @id @default(uuid())
+  description          String @db.VarChar(250)
+  code                 String @db.VarChar(50)
+  id_injection_process String @unique
 
   @@map("feedstock")
 }
 
 model Labor {
-  id                   String           @id @default(uuid())
-  description          String           @db.VarChar(250)
+  id                   String @id @default(uuid())
   amount               Int
-  id_injection_process String           @unique
-  injection_process    InjectionProcess @relation(fields: [id_injection_process], references: [id])
+  description          String @db.VarChar(250)
+  id_injection_process String @unique
 
   @@map("labor")
 }
 
 model Machine {
-  id                   String           @id @default(uuid())
-  model                String           @db.VarChar(50)
-  id_injection_process String           @unique
-  injection_process    InjectionProcess @relation(fields: [id_injection_process], references: [id])
+  id                   String @id @default(uuid())
+  model                String @db.VarChar(50)
+  id_injection_process String @unique
 
   @@map("machine")
 }
 
 model Mold {
-  id                   String           @id @default(uuid())
+  id                   String @id @default(uuid())
   number_cavity        Int
-  desc_mold            String           @db.VarChar(250)
-  id_injection_process String           @unique
-  injection_process    InjectionProcess @relation(fields: [id_injection_process], references: [id])
+  desc_mold            String @db.VarChar(250)
+  id_injection_process String @unique
 
   @@map("mold")
 }

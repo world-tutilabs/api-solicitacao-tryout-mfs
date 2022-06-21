@@ -11,12 +11,6 @@ interface Molde {
   mold: string
   id_process: number
 }
-interface Machine {
-  id: number
-  model: string
-  id_process: number
-}
-
 interface Feedstock {
   id: number
   code: string
@@ -28,9 +22,7 @@ interface InjectionProcess {
   id_tryout: number
   labor: Labor[]
   mold: Molde[]
-  machine: Machine[]
   feedstock: Feedstock[]
-  peripheral: object
 }
 export interface TryoutModel{
   id: number
@@ -38,7 +30,7 @@ export interface TryoutModel{
   product_description: string
   client: string
   date: Date
-  reason: number
+  reason: string
   id_status: number
   InjectionProcess: InjectionProcess
 }

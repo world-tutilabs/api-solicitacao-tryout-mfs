@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && tsc",
+    "debug": "nodemon -L --watch ./dist  ./dist/main/server.js",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down",
     "dev": "nodemon src/main/server.ts"
   },
   "author": "",

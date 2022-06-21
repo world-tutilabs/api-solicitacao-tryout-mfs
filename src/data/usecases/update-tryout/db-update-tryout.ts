@@ -7,8 +7,8 @@ export class DbUpdateTryoutRepository implements UpdateTryout {
   constructor (updateTryoutRepository: UpdateTryoutRepository) {
     this.updateTryoutRepository = updateTryoutRepository
   }
-  update(tryout: UpdateTryoutModel): Promise<TryoutModel> {
-    const update = this.updateTryoutRepository.update(tryout)
-    return update
+  update(tryout: any): Promise<TryoutModel> {
+    // const update = this.updateTryoutRepository.update(tryout)
+    return null
   }
 }
