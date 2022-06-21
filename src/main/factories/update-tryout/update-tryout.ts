@@ -3,9 +3,9 @@ import { UpdateTryoutMysqlRepository } from "../../../infra/db/mysql/tryout-repo
 import { UpdateTryoutController } from "../../../presentation/controllers/update-tryout/updateTrayout";
 import { Controller } from "../../../presentation/protocols";
 
-export const makeUpdateTryoutController = (): Controller => {
-  const updateTryoutMysqlRepository = new UpdateTryoutMysqlRepository()
-  const DbUpdateTryout = new DbUpdateTryoutRepository(updateTryoutMysqlRepository)
-  const updateTryoutController = new UpdateTryoutController(DbUpdateTryout)
-  return updateTryoutController
-}
+// export const makeUpdateTryoutController = (): Controller => {
+//   const updateTryoutMysqlRepository = new UpdateTryoutMysqlRepository()
+//   const DbUpdateTryout = new DbUpdateTryoutRepository(updateTryoutMysqlRepository)
+//   const updateTryoutController = new UpdateTryoutController(DbUpdateTryout)
+//   return updateTryoutController
+// }
