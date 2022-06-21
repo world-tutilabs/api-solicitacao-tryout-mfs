@@ -1,5 +1,6 @@
 import {Request, Response} from 'express'
 import { Controller } from '../../presentation/protocols'
+
 export const adaptRoute = (controller: Controller) => {
   return async function (req: Request, res: Response) {
     const httpRequest = {
@@ -10,7 +11,6 @@ export const adaptRoute = (controller: Controller) => {
       res.status(httpResponse.statusCode).json(httpResponse.body)
     } else {
       res.status(httpResponse.statusCode).json({ error: httpResponse.body.message })
-
     }
 
   }

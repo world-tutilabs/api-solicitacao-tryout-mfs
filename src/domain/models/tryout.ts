@@ -27,7 +27,7 @@ interface InjectionProcess {
   id: number
   id_tryout: number
   labor: Labor[]
-  mold: Molde[]
+  molde: Molde[]
   machine: Machine[]
   feedstock: Feedstock[]
   peripheral: object

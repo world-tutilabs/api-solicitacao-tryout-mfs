@@ -16,7 +16,7 @@ export class SignUpTryoutController implements Controller {
           if (error) {
             return badRequest(error)
           }
-            const tryout = await this.addTryout.add(httpRequest.body)
+           const tryout = await this.addTryout.add(httpRequest.body)
            return ok(tryout)
         }catch(error) {
             return serverError(error)

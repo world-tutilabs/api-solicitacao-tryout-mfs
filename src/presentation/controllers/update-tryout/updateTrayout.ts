@@ -7,7 +7,7 @@ export class UpdateTryoutController implements Controller {
   constructor (tryout: UpdateTryout) {
     this.tryout = tryout
   }
-  handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       this.tryout.update(httpRequest.body)
     } catch (error) {
