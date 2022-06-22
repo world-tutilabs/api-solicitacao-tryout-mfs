@@ -4,7 +4,7 @@ import { ListTryoutController } from "../../../presentation/controllers/list-try
 import { Controller } from "../../../presentation/protocols";
 
 export const makeListTryoutController = (): Controller => {
-    const  listTryoutMysqlRepository = new ListTryoutMysqlRepository();
+    const listTryoutMysqlRepository = new ListTryoutMysqlRepository();
     const dbListTryout = new DbListTryout(listTryoutMysqlRepository)
     const listTryoutController = new ListTryoutController(dbListTryout);
     return listTryoutController;

@@ -1,6 +1,6 @@
 import {AddTryoutRepository} from '../../../../data/protocols/add-tryout-repository'
 import { TryoutModel } from '../../../../domain/models/tryout';
-import { AddTryoutModel } from '../../../../domain/usecases/SolicitationTryout/add-tryout';
+import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/add-tryout';
 import {PrismaHelper} from '../helpers/prisma-helper';
 
 export class AddTryoutMysqlRepository implements AddTryoutRepository{

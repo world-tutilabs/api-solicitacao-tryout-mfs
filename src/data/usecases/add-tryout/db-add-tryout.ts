@@ -1,5 +1,5 @@
 import { TryoutModel } from "../../../domain/models/tryout";
-import { AddTryout, AddTryoutModel } from "../../../domain/usecases/SolicitationTryout/add-tryout";
+import { AddTryout, AddTryoutModel } from "../../../domain/useCases/SolicitationTryout/add-tryout";
 import { AddTryoutRepository } from "../../protocols/add-tryout-repository";
 
 export class DbAddTryout implements AddTryout{
