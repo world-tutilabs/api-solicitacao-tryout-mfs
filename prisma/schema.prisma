@@ -18,9 +18,9 @@ model HomologationStatus {
 model Homologation {
   id                     String             @id @default(uuid())
   fk_solicitation        String             @unique
-  created_user           String
+  created_user           Json
   created_at             DateTime
-  homologation_user      String
+  homologation_user      Json
   homologation_at        DateTime
   comment                String
   fk_homologation_status Int                @unique
@@ -49,7 +49,7 @@ model SolicitationTryout {
 model InjectionProcess {
   id              String             @default(uuid())
   id_tryout       String             @unique
-  proc_technician String
+  proc_technician Json
   quantity        Int
   tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id])
   feedstock       Feedstock?

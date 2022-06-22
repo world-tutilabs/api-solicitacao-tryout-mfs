@@ -1,7 +1,8 @@
-import {Router} from 'express'
-import { adaptRoute } from '../adapters/express-route-adapter'
-import { makeListTryoutController } from '../factories/list-tryout/list-tryout'
-import { makeSignUpTryoutController } from '../factories/signup-tryout/signup-tryout'
+import { Router } from "express"
+import { adaptRoute } from "../adapters/express-route-adapter"
+import { makeListTryoutController } from "../factories/solicitation-tryout-factory/list-tryout-factory"
+import { makeSignUpTryoutController } from "../factories/solicitation-tryout-factory/signup-tryout-factory"
+
 
 export default (router: Router): void => {
   router.get('/list', adaptRoute(makeListTryoutController()))
