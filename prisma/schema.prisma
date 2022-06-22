@@ -25,7 +25,7 @@ model Homologation {
   comment                String
   fk_homologation_status Int                @unique
   status                 HomologationStatus @relation(fields: [fk_homologation_status], references: [id])
-  solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
+  // solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
 
   @@map("homologation")
 }
@@ -40,7 +40,7 @@ model SolicitationTryout {
   reason           String            @db.VarChar(250)
   created_at       DateTime          @default(now())
   updated_at       DateTime          @default(now())
-  homologation     Homologation?
+  // homologation     Homologation?
   injectionProcess InjectionProcess?
 
   @@map("solicitation_tryout")
@@ -52,7 +52,9 @@ model InjectionProcess {
   proc_technician Json
   quantity        Int
   tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id])
-
+  feedstock       Feedstock?
+  labor           Labor?
+  mold            Mold?
   @@index([id_tryout], map: "id_tryou")
   @@map("injection_process")
 }
@@ -61,7 +63,8 @@ model Feedstock {
   id                   String @id @default(uuid())
   description          String @db.VarChar(250)
   code                 String @db.VarChar(50)
-  id_injection_process String @unique
+  id_process_injection String
+  fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout])
 
   @@map("feedstock")
 }
@@ -71,7 +74,7 @@ model Labor {
   amount               Int
   description          String @db.VarChar(250)
   id_injection_process String @unique
-
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
   @@map("labor")
 }
 
@@ -88,6 +91,6 @@ model Mold {
   number_cavity        Int
   desc_mold            String @db.VarChar(250)
   id_injection_process String @unique
-
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
   @@map("mold")
 }
