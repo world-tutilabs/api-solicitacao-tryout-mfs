@@ -114,6 +114,6 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
       }
     })
 
-    return null;
+    return result;
   }
 } 

@@ -28,9 +28,9 @@ interface ILabor {
   interface IHomolgation { 
     id: string,
     fk_solicitation: string,
-    created_user: object,
+    created_user: Object,
     created_at: Date 
-    homologation_user: object
+    homologation_user: Object
     homologation_at: Date
   }
 
@@ -39,7 +39,7 @@ export interface IInjectioinProcessDTO {
   
     id?: string;
     id_tryout: string;
-    proc_technician: object;
+    proc_technician: Object;
     quantity: number;
     feedstock?: IFeedstock;
     labor?: ILabor

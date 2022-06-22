@@ -3,12 +3,11 @@ import { AddTryout, AddTryoutModel } from "../../../../domain/useCases/Solicitat
 import { AddTryoutRepository } from "../../../protocols/db/SolicitationTryout/New-Mold/add-tryout-repository"
 
 export class DbAddTryout implements AddTryout{
-  private readonly addTryoutRepository: AddTryoutRepository
- constructor(addTryoutRepository: AddTryout){
-   this.addTryoutRepository = addTryoutRepository
- }
+ 
+ constructor( private readonly addTryoutRepository: AddTryoutRepository){}
+ 
   async add (tryout: AddTryoutModel): Promise<TryoutModel> {
-    const save = this.addTryoutRepository.add(tryout)
+    const save = await this.addTryoutRepository.add(tryout)
     return save
   }
 }

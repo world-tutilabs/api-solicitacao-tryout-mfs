@@ -3,10 +3,8 @@ import { serverError } from "../../helpers/http-helper";
 import { Controller, HttpRequest, HttpResponse } from "../../protocols";
 
 export class UpdateTryoutController  {
-  private readonly tryout: UpdateTryout
-  constructor (tryout: UpdateTryout) {
-    this.tryout = tryout
-  }
+  
+  constructor (private readonly tryout: UpdateTryout) {}
 
   // handle(httpRequest: HttpRequest): Promise<HttpResponse> {
   //   try {

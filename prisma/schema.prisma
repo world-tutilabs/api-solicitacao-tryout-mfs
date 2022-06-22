@@ -79,7 +79,7 @@ model Labor {
 }
 
 
-model Mold {ya
+model Mold {
   id                   String @id @default(uuid())
   number_cavity        Int
   desc_mold            String @db.VarChar(250)
