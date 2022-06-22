@@ -1,31 +1,71 @@
 import { IListTryoutRepository } from "../../../../data/protocols/list-tryout-repository";
+import { ISolicitationTryout } from "../../../../domain/models/ISolicitationTryout";
 import { TryoutModel } from "../../../../domain/models/tryout";
 import { PrismaHelper } from "../helpers/prisma-helper";
 
 export class ListTryoutMysqlRepository implements IListTryoutRepository {
-  async list(): Promise<TryoutModel[]> {
-    const result = PrismaHelper.prisma.tryout.findMany({
+  async list(): Promise<ISolicitationTryout[]> {
+    const result = PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
+        number_tryout: true,
         code_sap: true,
-        product_description: true,
+        desc_product: true,
         client: true,
-        date: true,
+        programmed_date: true,
         reason: true,
-        id_status: true,
-        injection_process: {
+        homologation: {
+          select: {
+           id: true,
+           fk_solicitation: true,
+           created_user: true,
+           created_at: true, 
+           homologation_user: true,
+           homologation_at: true,
+          }
+        },
+        injectionProcess: {
+
           select: {
             id: true,
             id_tryout: true,
-            labor: true,
-            molde: true,
-            machine: true,
-            feedstocks: true,
-            peripheral: true,
-          },
+            proc_technician: true,
+            quantity: true,
+            
+            feedstocks: {
+              select:{
+                id: true,
+                description: true,
+                code: true
+              }
+            },
+
+            labor: {
+              select:{
+                id: true,
+                description: true,
+                amount: true,
+              }
+            },
+
+            machine: {
+              select: {
+                id: true,
+                model: true,
+              }
+            },
+
+            molde: {
+              select:{
+                id: true,
+                number_cavity: true,
+                desc_mold: true,
+              }
+            }
+          }
         },
-      },
-    });
+      }
+    })
 
     return result;
   }

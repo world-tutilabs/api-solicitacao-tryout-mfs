@@ -1,5 +1,5 @@
-import { TryoutModel } from "../../domain/models/tryout";
+import { ISolicitationTryout } from "../../domain/models/ISolicitationTryout";
 
 export interface IListTryoutRepository {
-   list(): Promise<TryoutModel[]>
+   list(): Promise<ISolicitationTryout[]>
 }

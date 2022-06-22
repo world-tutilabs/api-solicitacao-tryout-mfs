@@ -4,6 +4,7 @@ import { makeSignUpTryoutController } from '../factories/signup-tryout/signup-tr
 
 export default (router: Router): void => {
   router.post('/signup', adaptRoute(makeSignUpTryoutController()))
+  
 }
 
 
