@@ -41,10 +41,10 @@ export interface IInjectioinProcess {
     id_tryout: string;
     proc_technician: string;
     quantity: number;
-    feedstocks?: IFeedstock;
+    feedstock?: IFeedstock;
     labor?: ILabor
-    molde?: IMold
-    machine?: IMachine
+    mold?: IMold
+    // machine?: IMachine
 }
 
 export interface ISolicitationTryout { 
@@ -55,6 +55,6 @@ export interface ISolicitationTryout {
     client: string;
     programmed_date: Date;
     reason: string;
-    homologation?: IHomolgation,
+    // homologation?: IHomolgation,
     injectionProcess?: IInjectioinProcess,
 }

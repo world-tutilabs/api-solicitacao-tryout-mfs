@@ -7,21 +7,14 @@ export class UpdateTryoutController  {
   constructor (tryout: UpdateTryout) {
     this.tryout = tryout
   }
-<<<<<<< HEAD
-  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    try {
-      this.tryout.update(httpRequest.body)
-    } catch (error) {
-      serverError(error)
-    }
-=======
+
   // handle(httpRequest: HttpRequest): Promise<HttpResponse> {
   //   try {
   //     this.tryout.update(httpRequest.body)
   //   } catch (error) {
   //     serverError(error)
   //   }
->>>>>>> 4d1936c866db349762afe6caf81af6571accb25c
+
    
   // }
 }

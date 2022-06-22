@@ -7,6 +7,12 @@ interface Molde {
   number_cavity: number
   mold: string
 }
+interface Machine {
+  model: string
+}
+interface Peripheral {
+  peripheral: object
+}
 interface Feedstock {
   code: string
   description: string
@@ -14,18 +20,19 @@ interface Feedstock {
 interface InjectionProcess {
   labor: Labor
   mold: Molde
+  machine: Machine
   feedstocks: Feedstock
+  peripherals: Peripheral
 }
-export interface AddTryoutModel {
+export interface UpdateTryoutModel {
   code_sap: string
   product_description: string
   client: string
   date: Date
-  reason: string
+  reason: number
   status: number
   InjectionProcess: InjectionProcess 
 }
-
-export interface AddTryout {
-  add (tryout: AddTryoutModel ): Promise<TryoutModel>
+export interface UpdateTryout {
+  update (id: number, tryout: UpdateTryoutModel): Promise<TryoutModel>
 }

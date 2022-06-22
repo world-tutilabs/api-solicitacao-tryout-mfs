@@ -14,16 +14,16 @@ export class ListTryoutMysqlRepository implements IListTryoutRepository {
         client: true,
         programmed_date: true,
         reason: true,
-        homologation: {
-          select: {
-           id: true,
-           fk_solicitation: true,
-           created_user: true,
-           created_at: true, 
-           homologation_user: true,
-           homologation_at: true,
-          }
-        },
+        // homologation: {
+        //   select: {
+        //    id: true,
+        //    fk_solicitation: true,
+        //    created_user: true,
+        //    created_at: true, 
+        //    homologation_user: true,
+        //    homologation_at: true,
+        //   }
+        // },
         injectionProcess: {
 
           select: {
@@ -32,7 +32,7 @@ export class ListTryoutMysqlRepository implements IListTryoutRepository {
             proc_technician: true,
             quantity: true,
             
-            feedstocks: {
+            feedstock: {
               select:{
                 id: true,
                 description: true,
@@ -48,14 +48,7 @@ export class ListTryoutMysqlRepository implements IListTryoutRepository {
               }
             },
 
-            machine: {
-              select: {
-                id: true,
-                model: true,
-              }
-            },
-
-            molde: {
+            mold: {
               select:{
                 id: true,
                 number_cavity: true,

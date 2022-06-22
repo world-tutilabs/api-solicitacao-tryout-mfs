@@ -1,16 +1,37 @@
-version: '3.8'
-
+version: '3'
 services:
-  db:
-    image: mysql:8.0
-    ports:
-      - 5050:3306
-    volumes:
-      - db_data:/var/lib/mysql
+  mysql:
+    container_name: mysql-container
+    image: mysql:8
     restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "1234:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 00bfc8c729f5d4d529a412b12c58ddd2
       MYSQL_DATABASE: Tryout
       MYSQL_PASSWORD: 00bfc8c729f5d4d529a412b12c58ddd2
-volumes:
-  db_data: {}
+    networks:
+      - back-end-tryout
+  api:
+    container_name: back-end-tryout-container
+    image: node:16
+    working_dir: /usr/src/back-end-tryout
+    restart: always
+    command: bash -c "npm install --only=prod && npx prisma generate && npx prisma db push && npm run debug"
+    env_file:
+      - .env
+    volumes:
+      - ./dist/:/usr/src/back-end-tryout/dist
+      - ./package.json:/usr/src/back-end-tryout/package.json
+      - ./prisma:/usr/src/back-end-tryout/prisma
+    ports:
+      - "3000:3000"
+    links: 
+      - mysql
+    networks:
+      - back-end-tryout
+networks:
+  back-end-tryout:
+      driver: bridge
