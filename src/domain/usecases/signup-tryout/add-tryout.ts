@@ -12,6 +12,8 @@ interface Feedstock {
   description: string
 }
 interface InjectionProcess {
+  proc_technician: object
+  quantity: number
   labor: Labor
   mold: Molde
   feedstocks: Feedstock

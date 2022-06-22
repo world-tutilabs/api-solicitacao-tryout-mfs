@@ -5,18 +5,17 @@ import {PrismaHelper} from '../helpers/prisma-helper';
 
 export class AddTryoutMysqlRepository implements AddTryoutRepository{
   async add (tryoutData: AddTryoutModel): Promise<TryoutModel>{ 
-    console.log('entrou')
       const result = await PrismaHelper.prisma.solicitationTryout.create({
             data: {
               code_sap: tryoutData.code_sap,
               desc_product: tryoutData.product_description,
               client: tryoutData.client,
-              programmed_date: new Date(),
+              programmed_date: new Date(tryoutData.date),
               reason: tryoutData.reason,
               injectionProcess: {
                 create: {
-                  proc_technician: "rafael almeida",
-                  quantity: 10,
+                  proc_technician: tryoutData.InjectionProcess.proc_technician,
+                  quantity: tryoutData.InjectionProcess.quantity,
                   labor: {
                     create: {
                       description: tryoutData.InjectionProcess.labor.description,
@@ -39,24 +38,23 @@ export class AddTryoutMysqlRepository implements AddTryoutRepository{
               }
             }
           })
-          console.log(result)
-          console.log('entrou')
-          // const FindAllTryout = await PrismaHelper.prisma.solicitationTryout.findMany({
-          //   where: { id: result.id },
-          //   include: {
-          //     injection_process: {
-          //       include:{
-          //         labor: true,
-          //         molde: true,
-          //         machine: true,
-          //         feedstocks: true,
-          //         peripheral: true
-          //       }
-          //     }
-          //   }
-          // })
-          // const mapInjectionProcess = await PrismaHelper.mapInjectionProcess(FindAllTryout)
-        return null
+          const FindAllTryout = await PrismaHelper.prisma.solicitationTryout.findMany({
+            where: {
+              id: result.id
+            },
+            include: {
+              injectionProcess: {
+                include: {
+                  feedstock: true,
+                  labor: true,
+                  mold: true
+                }
+              }
+            }
+          })
+      
+        const mapInjectionProcess = await PrismaHelper.mapInjectionProcess(FindAllTryout)
+      return mapInjectionProcess
     }
   
 } 

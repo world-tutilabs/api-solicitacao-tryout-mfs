@@ -4,7 +4,7 @@ import { ValidationComposite } from "../../../presentation/helpers/validators/va
 
 export const makeSignUpTryoutValidation = (): ValidationComposite => {
   const validations: Validation[] = []
-  for (const field of ['code_sap', 'product_description', 'client', 'reason']) {
+  for (const field of ['code_sap', 'product_description', 'client', 'reason', 'InjectionProcess', 'date']) {
     validations.push(new RequiredFieldValidation(field))
   }
 
