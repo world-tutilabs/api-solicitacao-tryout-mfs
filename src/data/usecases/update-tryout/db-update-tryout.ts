@@ -1,6 +1,6 @@
 import { TryoutModel } from "../../../domain/models/tryout";
 import { UpdateTryout, UpdateTryoutModel } from "../../../domain/usecases/update-tryout/update-tryout";
-import { UpdateTryoutRepository } from "../../protocols/update-tryout-repository";
+import { UpdateTryoutRepository } from "../../protocols/db/tryOut/update-tryout-repository";
 
 export class DbUpdateTryoutRepository implements UpdateTryout {
   private readonly updateTryoutRepository: UpdateTryoutRepository

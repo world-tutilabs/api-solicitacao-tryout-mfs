@@ -1,4 +1,4 @@
-import { UpdateTryoutRepository } from "../../../../data/protocols/update-tryout-repository";
+import { UpdateTryoutRepository } from "../../../../data/protocols/db/tryOut/update-tryout-repository";
 import { TryoutModel } from "../../../../domain/models/tryout";
 import { UpdateTryoutModel } from "../../../../domain/usecases/update-tryout/update-tryout";
 import { PrismaHelper } from "../helpers/prisma-helper";

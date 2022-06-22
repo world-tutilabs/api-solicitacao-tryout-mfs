@@ -1,4 +1,4 @@
-import { AddTryout } from '../../../domain/usecases/signup-tryout/add-tryout'
+import { AddTryout } from '../../../domain/usecases/tryout/add-tryout'
 import {badRequest, ok, serverError} from '../../helpers/http-helper'
 import { Validation } from '../../helpers/validators/validation'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
