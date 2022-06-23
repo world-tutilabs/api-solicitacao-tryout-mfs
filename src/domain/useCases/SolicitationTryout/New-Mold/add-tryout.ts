@@ -1,4 +1,4 @@
-import { TryoutModel } from "../../../models/tryout"
+import { ISolicitationTryoutDTO } from "../../../models/ISolicitationTryoutDTO"
 
 interface Labor {
   description: string
@@ -30,5 +30,5 @@ export interface AddTryoutModel {
 }
 
 export interface AddTryout {
-  add (tryout: AddTryoutModel ): Promise<TryoutModel>
+  add (tryout: AddTryoutModel ): Promise<ISolicitationTryoutDTO>
 }

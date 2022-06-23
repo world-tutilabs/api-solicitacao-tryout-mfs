@@ -32,6 +32,7 @@ interface ILabor {
     created_at: Date 
     homologation_user: Object
     homologation_at: Date
+    comment: string
   }
 
 
@@ -55,6 +56,6 @@ export interface ISolicitationTryoutDTO {
     client: string;
     programmed_date: Date;
     reason: string;
-    // homologation?: IHomolgation,
-    injectionProcess?: IInjectioinProcessDTO,
+    homologation?: IHomolgation,
+    injectionProcess?: IInjectioinProcessDTO
 }

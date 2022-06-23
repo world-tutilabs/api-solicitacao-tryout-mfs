@@ -1,12 +1,11 @@
 import { AddTryoutRepository } from '../../../../data/protocols/db/SolicitationTryout/New-Mold/add-tryout-repository';
 import { IListTryoutRepository } from '../../../../data/protocols/db/SolicitationTryout/New-Mold/list-tryout-repository';
 import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
-import { TryoutModel } from '../../../../domain/models/tryout';
 import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
 import {PrismaHelper} from '../helpers/prisma-helper';
 
 export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
-  async add (tryoutData: AddTryoutModel): Promise<TryoutModel> { 
+  async add (tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> { 
       const result = await PrismaHelper.prisma.solicitationTryout.create({
             data: {
               code_sap: tryoutData.code_sap,

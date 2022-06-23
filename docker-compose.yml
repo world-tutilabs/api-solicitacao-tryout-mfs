@@ -19,7 +19,7 @@ services:
     image: node:16
     working_dir: /usr/src/back-end-tryout
     restart: always
-    command: bash -c "npm install --only=prod && npx prisma generate && npx prisma db push && npm run debug"
+    command: bash -c "npm install --only=prod && npx prisma generate && npx prisma db push && npm run seed && npm run debug"
     env_file:
       - .env
     volumes:

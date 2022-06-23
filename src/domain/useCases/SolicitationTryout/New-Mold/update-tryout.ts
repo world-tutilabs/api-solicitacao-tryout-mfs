@@ -1,4 +1,4 @@
-import { TryoutModel } from "../../../models/tryout"
+import { ISolicitationTryoutDTO } from "../../../models/ISolicitationTryoutDTO"
 
 interface Labor {
   description: string
@@ -35,5 +35,5 @@ export interface UpdateTryoutModel {
   InjectionProcess: InjectionProcess 
 }
 export interface UpdateTryout {
-  update (id: number, tryout: UpdateTryoutModel): Promise<TryoutModel>
+  update (id: number, tryout: UpdateTryoutModel): Promise<ISolicitationTryoutDTO>
 }
