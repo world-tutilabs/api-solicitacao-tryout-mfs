@@ -4,21 +4,25 @@ import { IListTryoutRepository } from "../../../../data/protocols/db/Solicitatio
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { PrismaHelper } from "../helpers/prisma-helper";
 
-export class AnalysisPCPMysqlRepository implements IListTryoutAnalysisPCRepository, {
+export class AnalysisPCPMysqlRepository implements IListTryoutAnalysisPCRepository {
     list(): Promise<ISolicitationTryoutDTO[]> {
+        throw new Error("Method not implemented.");
+    }
+
+    // list(): Promise<ISolicitationTryoutDTO[]> {
        
-        PrismaHelper.prisma.homologation.findMany({
-         select:{
+    //     PrismaHelper.prisma.homologation.findMany({
+    //      select:{
            
-         },
-         where:{
-            status:{
-                description: "",
-            }
-         }
+    //      },
+    //      where:{
+    //         status:{
+    //             description: "",
+    //         }
+    //      }
             
-        })
-    } 
+    //     })
+    // } 
    
     
 }
