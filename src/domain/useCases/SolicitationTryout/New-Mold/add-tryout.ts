@@ -19,6 +19,15 @@ interface InjectionProcess {
   mold: Molde
   feedstocks: Feedstock
 }
+interface Homolgation { 
+  id: string,
+  fk_solicitation: string,
+  created_user: object,
+  created_at: Date 
+  homologation_user: Object
+  homologation_at: Date
+  comment: string
+}
 export interface AddTryoutModel {
   code_sap: string
   product_description: string
@@ -26,7 +35,8 @@ export interface AddTryoutModel {
   date: Date
   reason: string
   status: number
-  InjectionProcess: InjectionProcess 
+  InjectionProcess: InjectionProcess
+  homologation?: Homolgation 
 }
 
 export interface AddTryout {

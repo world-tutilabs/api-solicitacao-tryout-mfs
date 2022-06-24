@@ -13,6 +13,13 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
               client: tryoutData.client,
               programmed_date: new Date(tryoutData.date),
               reason: tryoutData.reason,
+              homologation: {
+                create: {
+                  created_user: tryoutData.homologation.created_user,
+                  created_at: new Date(),
+                  fk_homologation_status: 1
+                }
+              },
               injectionProcess: {
                 create: {
                   proc_technician: tryoutData.InjectionProcess.proc_technician,

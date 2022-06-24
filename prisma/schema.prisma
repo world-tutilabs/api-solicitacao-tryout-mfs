@@ -20,9 +20,9 @@ model Homologation {
   fk_solicitation        String             @unique
   created_user           Json
   created_at             DateTime
-  homologation_user      Json
-  homologation_at        DateTime
-  comment                String
+  homologation_user      Json?
+  homologation_at        DateTime?
+  comment                String?
   fk_homologation_status Int                @unique
   status                 HomologationStatus @relation(fields: [fk_homologation_status], references: [id])
   solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
@@ -55,35 +55,37 @@ model InjectionProcess {
   feedstock       Feedstock?
   labor           Labor?
   mold            Mold?
+
   @@index([id_tryout], map: "id_tryou")
   @@map("injection_process")
 }
 
 model Feedstock {
-  id                   String @id @default(uuid())
-  description          String @db.VarChar(250)
-  code                 String @db.VarChar(50)
-  id_process_injection String
+  id                   String           @id @default(uuid())
+  description          String           @db.VarChar(250)
+  code                 String           @db.VarChar(50)
+  id_process_injection String           @unique
   fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout])
 
   @@map("feedstock")
 }
 
 model Labor {
-  id                   String @id @default(uuid())
+  id                   String           @id @default(uuid())
   amount               Int
-  description          String @db.VarChar(250)
-  id_injection_process String @unique
+  description          String           @db.VarChar(250)
+  id_injection_process String           @unique
   fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+
   @@map("labor")
 }
 
-
 model Mold {
-  id                   String @id @default(uuid())
+  id                   String           @id @default(uuid())
   number_cavity        Int
-  desc_mold            String @db.VarChar(250)
-  id_injection_process String @unique
+  desc_mold            String           @db.VarChar(250)
+  id_injection_process String           @unique
   fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+
   @@map("mold")
 }
