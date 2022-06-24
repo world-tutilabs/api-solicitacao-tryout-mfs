@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
-import { TryoutModel } from '../../../../domain/models/tryout'
+import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO'
 export const PrismaHelper = {
    prisma: new PrismaClient(),
-   async mapInjectionProcess (data: object): Promise<TryoutModel> {
+   async mapInjectionProcess (data: object): Promise<ISolicitationTryoutDTO> {
     return data[0]
    } 
    
