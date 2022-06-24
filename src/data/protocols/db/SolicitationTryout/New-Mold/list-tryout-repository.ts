@@ -3,3 +3,5 @@ import { ISolicitationTryoutDTO } from "../../../../../domain/models/ISolicitati
 export interface IListTryoutRepository {
    list(): Promise<ISolicitationTryoutDTO[]>
 }
+
+
