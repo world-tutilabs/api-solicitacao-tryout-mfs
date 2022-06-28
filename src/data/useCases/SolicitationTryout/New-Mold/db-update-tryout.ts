@@ -1,14 +1,12 @@
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO"
-import { UpdateTryout } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout"
+import { UpdateTryout, UpdateTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout"
 import { UpdateTryoutRepository } from "../../../protocols/db/SolicitationTryout/New-Mold/update-tryout-repository"
 
 export class DbUpdateTryoutRepository implements UpdateTryout {
-  private readonly updateTryoutRepository: UpdateTryoutRepository
-  constructor (updateTryoutRepository: UpdateTryoutRepository) {
-    this.updateTryoutRepository = updateTryoutRepository
+  constructor (private readonly updateTryoutRepository: UpdateTryoutRepository) {
   }
-  update(tryout: any): Promise<ISolicitationTryoutDTO> {
-    // const update = this.updateTryoutRepository.update(tryout)
-    return null
+  update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
+    const update = this.updateTryoutRepository.update(tryoutData)
+    return update
   }
 }
