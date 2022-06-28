@@ -28,6 +28,11 @@ interface Homolgation {
   homologation_at: Date
   comment: string
 }
+interface User {
+  nome_completo: string
+  matricula: string
+  nivel_de_acesso: object
+}
 export interface AddTryoutModel {
   code_sap: string
   product_description: string
@@ -36,7 +41,8 @@ export interface AddTryoutModel {
   reason: string
   status: number
   InjectionProcess: InjectionProcess
-  homologation?: Homolgation 
+  homologation?: Homolgation
+  user: User 
 }
 
 export interface AddTryout {
