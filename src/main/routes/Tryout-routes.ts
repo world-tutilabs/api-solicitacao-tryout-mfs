@@ -7,7 +7,7 @@ import { verifyLogger } from "../middlewares"
 
 export default (router: Router): void => {
   router.get('/list',verifyLogger,adaptRoute(makeListTryoutController()))
-  router.post('/signup', adaptRoute(makeSignUpTryoutController()))
+  router.post('/signup', verifyLogger,adaptRoute(makeSignUpTryoutController()))
   
 }
 

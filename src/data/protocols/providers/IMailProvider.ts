@@ -12,5 +12,5 @@ export interface IMessage {
 
 
 export interface IMailProvider {
-    sendMail(message: IMailProvider): Promise<void>
+    sendMail(message: IMessage): Promise<void>
 }

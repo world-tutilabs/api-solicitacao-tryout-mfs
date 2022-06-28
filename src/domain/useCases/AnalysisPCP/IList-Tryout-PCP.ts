@@ -1,6 +1,7 @@
-import { ISolicitationTryoutDTO } from "../../models/ISolicitationTryoutDTO";
+import { IHomologateTryoutDTO } from "../../models/IHomologateTryoutDTO";
+
 
 export interface IListTryoutPCP { 
 
-    listAnalysisPCP(): Promise<ISolicitationTryoutDTO[]>
+    listAnalysisPCP(): Promise<IHomologateTryoutDTO[]>
 }
