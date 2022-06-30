@@ -1,5 +1,6 @@
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { IListTryout } from "../../../../domain/useCases/SolicitationTryout/New-Mold/list-tryout";
+import { AppError } from "../../../../presentation/errors/AppError";
 import { IListTryoutRepository } from "../../../protocols/db/SolicitationTryout/New-Mold/list-tryout-repository";
 
 export class DbListTryout implements IListTryout{

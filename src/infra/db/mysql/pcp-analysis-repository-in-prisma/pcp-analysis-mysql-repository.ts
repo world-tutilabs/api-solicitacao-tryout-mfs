@@ -6,6 +6,8 @@ import { IListTryoutRepository } from "../../../../data/protocols/db/Solicitatio
 import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { IHomologate } from "../../../../domain/useCases/AnalysisPCP/IHomologation-Tryout-PCP";
+import { AppError } from "../../../../presentation/errors/AppError";
+import { ServerError } from "../../../../presentation/errors/server-error";
 import { PrismaHelper } from "../helpers/prisma-helper";
 
 export class AnalysisPCPMysqlRepository implements 
@@ -13,30 +15,40 @@ IListTryoutAnalysisPCRepository,
 IHomologationRepositoryInRepository, 
 IFindByHomologateTryoutPCPRepository {
  
-    async homologate({id, status, userHomologate, comment}: IHomologate): Promise<IHomologate> {
+    async homologate({id, status, userHomologate, comment}: IHomologate): Promise<IHomologateTryoutDTO> {
+        try {
 
-         const data = await PrismaHelper.prisma.homologation.update({
+            const data = await PrismaHelper.prisma.homologation.update({
+        
             data: {
-               fk_homologation_status: status,
-               homologation_user: userHomologate,
-               homologation_at: new Date(),
-               comment,
-            },
-            where: {
-               id
-            }
-           })
+                 fk_homologation_status: status,
+                 homologation_user: userHomologate,
+                 homologation_at: new Date(),
+                 comment,
+              },
+              where: {
+                 id
+              }
+             }).then(async () => {
+              
+              const homologate = await this.findByHomologateTryout(id);
+              
+              return homologate;
+  
+             })
+  
+           return data;
+
+        } catch (error) {
          
-           return {
-            id: data.id,
-            userHomologate: Object(data.homologation_user),
-            fk_solicitation: data.fk_solicitation,
-            status: data.fk_homologation_status,
-            comment: data.comment
-           };
-   
+         throw new AppError('Erro ao conectar com banco de dados', 500)
+      }
+
     }
    async list(): Promise<IHomologateTryoutDTO[]> {
+
+      try {
+
       const tryouts = await PrismaHelper.prisma.homologation.findMany({
               select : {
                id: true,
@@ -50,7 +62,15 @@ IFindByHomologateTryoutPCPRepository {
                      client: true,
                      programmed_date: true,
                      reason: true,
-                     injectionProcess: true,
+                     injectionProcess: {
+                        select: {
+                           id: true,
+                           id_tryout: true,
+                           proc_technician: true,
+                           quantity: true,
+                           mold: true
+                        }
+                     },
                   }
                },
                created_user: true,
@@ -58,16 +78,60 @@ IFindByHomologateTryoutPCPRepository {
                homologation_user: true,
                homologation_at: true,
                comment: true,
-               status: true,
-              }  
+               status: {
+                  select:{
+                     id: true,
+                     description: true,
+                  }
+               },
+              },
+              where: {
+               fk_homologation_status: 3
+              }
+              
       })
 
        return tryouts;
-    }
+  
+      }catch(error){
+  
+         throw new AppError('Erro ao conectar com banco de dados', 500)
+  
+      }     
+   }
 
    async findByHomologateTryout(id: string): Promise<IHomologateTryoutDTO> {
-        const tryout = await PrismaHelper.prisma.homologation.findFirst(
-         {
+        const tryout = await PrismaHelper.prisma.homologation.findFirst({     
+          select: {
+            id: true,
+            fk_solicitation: true,
+            solicitation: {
+               select: {
+                  id: true,
+                  number_tryout: true,
+                  code_sap: true,
+                  desc_product: true,
+                  client: true,
+                  programmed_date: true,
+                  reason: true,
+                  injectionProcess: {
+                     select: {
+                        id: true,
+                        id_tryout: true,
+                        proc_technician: true,
+                        quantity: true,
+                        mold: true
+                     }
+                  },
+               }
+            },
+            created_user: true,
+            created_at: true,
+            homologation_user: true,
+            homologation_at: true,
+            comment: true,
+            status: true,
+         },
              where: {
                   id
                      }

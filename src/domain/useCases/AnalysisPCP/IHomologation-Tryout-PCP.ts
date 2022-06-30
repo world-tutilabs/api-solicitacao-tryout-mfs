@@ -8,6 +8,5 @@ export interface IHomologate {
 }
 
 export interface IHomologationTryoutPCP {
-   
    homologateTryout(data: IHomologate): Promise<void> 
 }

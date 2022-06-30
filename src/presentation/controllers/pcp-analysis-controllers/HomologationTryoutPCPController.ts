@@ -1,6 +1,6 @@
 
 import { IHomologationTryoutPCP } from "../../../domain/useCases/AnalysisPCP/IHomologation-Tryout-PCP";
-import { serverError, success,ok } from "../../helpers/http-helper";
+import { ok } from "../../helpers/http-helper";
 import { Controller, HttpRequest, HttpResponse } from "../../protocols";
 
 export class HomologationTryoutPCPController implements Controller{
@@ -11,17 +11,10 @@ export class HomologationTryoutPCPController implements Controller{
         const { id } = httpRequest.params
         const { status, comment, user } = httpRequest.body
         
-       try {
-
         await this.homologationTryoutPCP.homologateTryout({ id, status, comment, userHomologate: user})
        
-        return ok({ message: "homologation success"});
+        return ok({ message: "Homologado com sucesso."});
         
-       } catch (error) {
-        
-       return serverError(error);
-
-       }
           
     }
 

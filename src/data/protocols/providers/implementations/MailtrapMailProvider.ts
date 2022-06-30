@@ -31,6 +31,8 @@ export class MailtrapMailProvider implements IMailProvider{
             subject: message.subject,
             html: message.body
         })
+
+     
     }
 
 

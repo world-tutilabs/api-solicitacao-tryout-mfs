@@ -28,10 +28,11 @@ interface Homolgation {
   homologation_at: Date
   comment: string
 }
-interface User {
+export interface User {
   nome_completo: string
   matricula: string
   nivel_de_acesso: object
+  email: string,
 }
 export interface AddTryoutModel {
   code_sap: string

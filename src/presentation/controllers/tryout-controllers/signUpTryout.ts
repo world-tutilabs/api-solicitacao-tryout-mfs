@@ -22,7 +22,7 @@ export class SignUpTryoutController implements Controller {
            return ok(tryout)
   
           }catch(error) {
-            console.error(error)
+            
             return serverError(error)
   
           }

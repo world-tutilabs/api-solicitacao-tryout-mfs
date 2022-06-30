@@ -3,6 +3,7 @@ import { IListTryoutRepository } from '../../../../data/protocols/db/Solicitatio
 import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
 import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
 import { UpdateTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout';
+import { AppError } from '../../../../presentation/errors/AppError';
 import {PrismaHelper} from '../helpers/prisma-helper';
 
 export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
@@ -20,10 +21,11 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                   created_user: {nome:tryoutData.user.nome_completo.trim(),
                     matricula: tryoutData.user.matricula.trim(),
                     role: tryoutData.user.nivel_de_acesso['descricao'].trim(),
-                    date: new Date().toDateString() 
+                    date: new Date().toDateString(), 
+                    email: tryoutData.user.email.trim()
                   },
                   created_at: new Date(),
-                  fk_homologation_status: 1
+                  fk_homologation_status: 3
                 }
               },
               injectionProcess: {
@@ -74,6 +76,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
 
 
   async list(): Promise<ISolicitationTryoutDTO[]> {
+
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
@@ -133,10 +136,11 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             }
           }
         },
-      },
+      }
     })
 
     return result;
+
   }
   async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
   
