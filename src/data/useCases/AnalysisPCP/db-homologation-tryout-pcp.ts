@@ -1,5 +1,6 @@
 import { IHomologate, IHomologationTryoutPCP } from "../../../domain/useCases/AnalysisPCP/IHomologation-Tryout-PCP";
 import { AppError } from "../../../presentation/errors/AppError";
+import { IFindByHomologateTryoutPCPRepository } from "../../protocols/db/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
 import { IHomologationRepositoryInRepository } from "../../protocols/db/AnalysisPCP/homologate-pcp-repository";
 import { IMailProvider } from "../../protocols/providers/IMailProvider";
 
@@ -9,21 +10,31 @@ export class DbHomologationTryoutPCP implements IHomologationTryoutPCP{
     constructor(
     private readonly mailProvider: IMailProvider,
     private readonly homologationRepositoryInRepository: IHomologationRepositoryInRepository,
+    private readonly findByHomologateTryoutPCPRepository: IFindByHomologateTryoutPCPRepository,
     ){}
     
 async homologateTryout({id, status, userHomologate, comment}: IHomologate): Promise<void> { 
-        
-    const dataHomologate = await this.homologationRepositoryInRepository.homologate({id, status, userHomologate, comment});
+
+  if( status == 3 || status > 4  || status < 0){ 
+     throw new AppError('Status indisponível', 403);
+  }
+
+  const findHomologate = await this.findByHomologateTryoutPCPRepository.findByHomologateTryout(id);
+ 
+  if(findHomologate.status.id != 3){
+     throw new AppError('Solicitação de Tryout já Homologada', 401);
+  }
+
+  const dataHomologate = await this.homologationRepositoryInRepository.homologate({id, status, userHomologate, comment});
+ 
   try {
+
     const homologate: any = Object(dataHomologate.homologation_user);
-    console.log(homologate);
-    
     await this.mailProvider.sendMail({
         to:{
             name: 'Luan Albuquerque',
             email: 'luan.santos6605@gmail.com',
             // email: `${homologate.email}`,
-            
         },
         from: {
             name: 'MFS - Molding File System',
@@ -38,16 +49,12 @@ async homologateTryout({id, status, userHomologate, comment}: IHomologate): Prom
         <h3>Data de Homologação PCP: ${homologate.atualizado_em}  </h3>  
         <h3>Situação: ${dataHomologate.status.description}  </h3>  
         <h3>Motivo (comentário): ${dataHomologate.comment}  </h3>  
-
          `,
         });
 
-  } catch (error) {
-       throw new AppError('Erro ao enviar E-mail', 500);    
-  }
-    
-        
-
+       } catch (error) {
+        throw new AppError('Erro ao enviar E-mail', 500);    
+     } 
    }
 
 }
