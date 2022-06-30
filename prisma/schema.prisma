@@ -10,20 +10,20 @@ datasource db {
 model HomologationStatus {
   id           Int           @id @default(autoincrement())
   description  String        @db.VarChar(250)
-  homologation Homologation?
+  homologation Homologation[]
 
   @@map("homologation_status")
 }
 
 model Homologation {
   id                     String             @id @default(uuid())
-  fk_solicitation        String             @unique
+  fk_solicitation        String             
   created_user           Json
   created_at             DateTime
   homologation_user      Json?
   homologation_at        DateTime?
   comment                String?
-  fk_homologation_status Int                @unique
+  fk_homologation_status Int                
   status                 HomologationStatus @relation(fields: [fk_homologation_status], references: [id])
   solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
 

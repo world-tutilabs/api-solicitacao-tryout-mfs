@@ -1,3 +1,4 @@
+import { IHomologateTryoutDTO } from "./IHomologateTryoutDTO"
 
 interface ILabor {
     id: string
@@ -25,16 +26,6 @@ interface ILabor {
     
   }
 
-  interface IHomolgation { 
-    id: string,
-    fk_solicitation: string,
-    created_user: Object,
-    created_at: Date 
-    homologation_user: Object
-    homologation_at: Date
-    comment: string
-  }
-
 
 export interface IInjectioinProcessDTO { 
   
@@ -56,6 +47,6 @@ export interface ISolicitationTryoutDTO {
     client: string;
     programmed_date: Date;
     reason: string;
-    homologation?: IHomolgation,
+    homologation?: IHomologateTryoutDTO,
     injectionProcess?: IInjectioinProcessDTO
 }

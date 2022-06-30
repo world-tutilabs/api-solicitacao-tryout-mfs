@@ -2,10 +2,13 @@ import { AddTryoutRepository } from '../../../../data/protocols/db/SolicitationT
 import { IListTryoutRepository } from '../../../../data/protocols/db/SolicitationTryout/New-Mold/list-tryout-repository';
 import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
 import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
+import { UpdateTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout';
+import { AppError } from '../../../../presentation/errors/AppError';
 import {PrismaHelper} from '../helpers/prisma-helper';
 
 export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
   async add (tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> { 
+    
       const result = await PrismaHelper.prisma.solicitationTryout.create({
             data: {
               code_sap: tryoutData.code_sap,
@@ -15,9 +18,14 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
               reason: tryoutData.reason,
               homologation: {
                 create: {
-                  created_user: tryoutData.homologation.created_user,
+                  created_user: {nome:tryoutData.user.nome_completo.trim(),
+                    matricula: tryoutData.user.matricula.trim(),
+                    role: tryoutData.user.nivel_de_acesso['descricao'].trim(),
+                    date: new Date().toDateString(), 
+                    email: tryoutData.user.email.trim()
+                  },
                   created_at: new Date(),
-                  fk_homologation_status: 1
+                  fk_homologation_status: 3
                 }
               },
               injectionProcess: {
@@ -64,7 +72,11 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
         const mapInjectionProcess = await PrismaHelper.mapInjectionProcess(FindAllTryout)
       return mapInjectionProcess
     }
+
+
+
   async list(): Promise<ISolicitationTryoutDTO[]> {
+
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
@@ -74,16 +86,23 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
         client: true,
         programmed_date: true,
         reason: true,
-        // homologation: {
-        //   select: {
-        //    id: true,
-        //    fk_solicitation: true,
-        //    created_user: true,
-        //    created_at: true, 
-        //    homologation_user: true,
-        //    homologation_at: true,
-        //   }
-        // },
+        homologation: {
+          select: {
+            id: true,
+            fk_solicitation: true,
+            created_user: true,
+            created_at: true,
+            homologation_user: true,
+            homologation_at: true,
+            comment: true,
+            status:{
+              select:{
+                id: true,
+                description: true
+              }
+            }
+          }
+        },
         injectionProcess: {
 
           select: {
@@ -121,5 +140,10 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
     })
 
     return result;
+
+  }
+  async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
+  
+    return null
   }
 } 

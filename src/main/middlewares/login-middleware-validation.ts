@@ -13,20 +13,32 @@ export const verifyLogger = async (req: Request, res: Response, next: NextFuncti
         const response = await http.post('/session/verify', {}, { headers: {
           Authorization: `Bearer ${token}`
       }})
-
     if (response.status == 401) {
          res.status(401).json({ status: 'error', message: 'not authorized' });
     }
-
+  
     const authorization = response.data.user.User_Sistema.find(us => us.sistema.descricao === "RRIM") && response.data.user.status
-
     if (!authorization) {
          res.status(401).json({ status: 'error', message: 'not authorized' });
     }
-       next();
+    req.body.user = response.data.user
+    next();
 
       } catch (error) {
         res.status(401).json({ status: 'error', message: 'not authorized' });
       }
     
+} 
+
+export const verifyPCPlogger = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const { user } = req.body
+     
+  if (    user.nivel_de_acesso.descricao === "eng_analista"
+       || user.nivel_de_acesso.descricao === "pcp_injecao"  
+       || user.nivel_de_acesso.descricao === "pcp_iacabamento") {
+       next()
+  }else{
+   res.status(401).json({ status: 'error', message: 'not authorized' });
+  }
+
 } 

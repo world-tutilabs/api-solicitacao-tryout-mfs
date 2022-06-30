@@ -1,7 +1,7 @@
-import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
+import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
 
 export interface IListTryoutAnalysisPCRepository {
 
-list(): Promise<ISolicitationTryoutDTO[]>
+    list(): Promise<IHomologateTryoutDTO[]>
 
 }
