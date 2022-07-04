@@ -13,11 +13,14 @@ interface Feedstock {
   description: string
 }
 interface InjectionProcess {
+  proc_technician: object
+  quantity: number
   labor: Labor
   mold: Molde
   feedstocks: Feedstock
 }
 export interface UpdateTryoutModel {
+  id: string
   code_sap: string
   product_description: string
   client: string

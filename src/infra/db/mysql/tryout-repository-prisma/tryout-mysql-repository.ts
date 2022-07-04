@@ -129,7 +129,56 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
     return result;
   }
   async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
-  
-    return null
+    const result = await PrismaHelper.prisma.solicitationTryout.update({
+      where: {
+        id: tryoutData.id
+      },
+      data: {
+        code_sap: tryoutData.code_sap,
+        desc_product: tryoutData.product_description,
+        client: tryoutData.client,
+        reason: tryoutData.reason,
+        programmed_date: new Date(tryoutData.date),
+        homologation: {
+          update: {
+            fk_homologation_status: 3,
+          }
+        },
+        injectionProcess: {
+          update: {
+            proc_technician: tryoutData.InjectionProcess.proc_technician,
+            quantity: tryoutData.InjectionProcess.quantity,
+            labor: {
+              update: {
+                amount: tryoutData.InjectionProcess.labor.amount,
+                description: tryoutData.InjectionProcess.labor.description
+              }
+            },
+            mold: {
+              update: {
+                number_cavity: tryoutData.InjectionProcess.mold.number_cavity,
+                desc_mold: tryoutData.InjectionProcess.mold.mold
+              }
+            },
+            feedstock: {
+              update: {
+                code: tryoutData.InjectionProcess.feedstocks.code,
+                description: tryoutData.InjectionProcess.feedstocks.description
+              }
+            }
+          }
+        }
+      }
+
+    })
+    return result
   }
+  async findByIdSolicitationTryout (id:string): Promise <ISolicitationTryoutDTO> {
+    const result = await PrismaHelper.prisma.solicitationTryout.findUnique({
+      where: {
+        id
+      }
+    })
+    return result
+  } 
 } 

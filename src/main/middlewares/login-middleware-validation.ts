@@ -8,7 +8,6 @@ export const verifyLogger = async (req: Request, res: Response, next: NextFuncti
         const {body,statusCode} = unauthorized()
          res.status(statusCode).json(body)
       }
-      
       const [_, token] = isValidToken.split(" ")
       try {
         const response = await http.post('/session/verify', {}, { headers: {

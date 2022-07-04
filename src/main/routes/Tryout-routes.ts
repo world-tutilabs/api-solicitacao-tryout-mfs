@@ -2,7 +2,7 @@ import { Router } from "express"
 import { adaptRoute } from "../adapters/express-route-adapter"
 import { makeListTryoutController } from "../factories/solicitation-tryout-factory/list-tryout-factory"
 import { makeSignUpTryoutController } from "../factories/solicitation-tryout-factory/signup-tryout-factory"
-import { makeUpdateTryoutController } from "../factories/solicitation-tryout-factory/update-tryout"
+import { makeUpdateTryoutController } from "../factories/solicitation-tryout-factory/update-tryout-factory"
 import { verifyLogger } from "../middlewares"
 
 
