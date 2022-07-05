@@ -1,6 +1,14 @@
 import {ServerError} from '../errors/server-error'
 import { UnauthorizedError } from '../errors/unauthorized-error'
 import {HttpResponse} from '../protocols' 
+export const noContent = (): HttpResponse => ({
+  statusCode: 204,
+  body: null
+})
+export const notFound = (): HttpResponse => ({
+  statusCode: 404,
+  body: null
+})
 export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400,
   body: error

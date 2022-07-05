@@ -1,6 +1,6 @@
 import { DbAddTryout } from "../../../data/useCases/SolicitationTryout/New-Mold/db-add-tryout"
 import { TryoutMysqlRepository } from "../../../infra/db/mysql/tryout-repository-prisma/tryout-mysql-repository"
-import { SignUpTryoutController } from "../../../presentation/controllers/tryout-controllers/signUpTryout"
+import { SignUpTryoutController } from "../../../presentation/controllers/tryout-controllers/signUp-Tryout-Controller"
 import { Controller } from "../../../presentation/protocols"
 import { makeSignUpTryoutValidation } from "./validations/signup-tryout-validation-factory"
 
