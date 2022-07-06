@@ -27,7 +27,7 @@ services:
       - ./package.json:/usr/src/back-end-tryout/package.json
       - ./prisma:/usr/src/back-end-tryout/prisma
     ports:
-      - "3000:3000"
+      - "5000:3000"
     links: 
       - mysql
     networks:

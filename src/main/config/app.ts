@@ -3,9 +3,10 @@ import "express-async-errors";
 import { AppError } from '../../presentation/errors/AppError';
 import setupMiddlewares from './middlewares'
 import setupRoutes from './routes'
-
+import cors from 'cors'
 const app = Express()
 
+app.use(cors())
   
 setupMiddlewares(app)
 setupRoutes(app)
