@@ -8,6 +8,7 @@ import {PrismaHelper} from '../helpers/prisma-helper';
 
 export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
   async add (tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> { 
+    console.log(tryoutData);
     
       const result = await PrismaHelper.prisma.solicitationTryout.create({
             data: {
