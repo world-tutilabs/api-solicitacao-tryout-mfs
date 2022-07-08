@@ -14,6 +14,7 @@ export class UpdateTryoutController  {
        if (error) {
         return badRequest(error)
       }
+      httpRequest.body.id = httpRequest.params.id 
       const update = await this.tryout.update(httpRequest.body)
       return noContent()
     } catch (error) {

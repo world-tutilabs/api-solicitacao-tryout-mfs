@@ -8,5 +8,7 @@ export const makeUpdateTryoutValidation = (): ValidationComposite => {
   for (const field of ['code_sap', 'product_description', 'client', 'reason', 'InjectionProcess', 'date']) {
     validations.push(new RequiredFieldValidation(field))
   }
+  // const tryoutMysqlRepository = new TryoutMysqlRepository()
+  // validations.push(new InvalidFieldValidation('id'))
   return new ValidationComposite(validations)
 }
