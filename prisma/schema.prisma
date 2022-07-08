@@ -40,7 +40,7 @@ model SolicitationTryout {
   reason           String            @db.VarChar(250)
   created_at       DateTime          @default(now())
   updated_at       DateTime          @default(now())
-  homologation     Homologation?
+  homologation     Homologation[]
   injectionProcess InjectionProcess?
 
   @@map("solicitation_tryout")

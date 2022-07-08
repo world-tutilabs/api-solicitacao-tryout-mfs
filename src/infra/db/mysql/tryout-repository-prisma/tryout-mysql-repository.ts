@@ -8,8 +8,6 @@ import { PrismaHelper } from '../helpers/prisma-helper';
 
 export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
   async add(tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> {
-    console.log(tryoutData);
-
     const result = await PrismaHelper.prisma.solicitationTryout.create({
       data: {
         code_sap: tryoutData.code_sap,
@@ -165,6 +163,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
 
   }
   async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
+
     const result = await PrismaHelper.prisma.solicitationTryout.update({
       where: {
         id: tryoutData.id

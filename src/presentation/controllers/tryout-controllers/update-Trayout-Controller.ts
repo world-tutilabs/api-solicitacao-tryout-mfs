@@ -9,11 +9,9 @@ export class UpdateTryoutController  {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const errorParams = this.validation.validateParams(httpRequest.params)
+      // const errorParams = this.validation.validateParams(httpRequest.params)
       const error = this.validation.validate(httpRequest.body)
-      if (errorParams) {
-        return notFound()
-      }else if (error) {
+       if (error) {
         return badRequest(error)
       }
       const update = await this.tryout.update(httpRequest.body)
