@@ -129,6 +129,8 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
     return result;
   }
   async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
+    
+    console.log(tryoutData.id)
     const result = await PrismaHelper.prisma.solicitationTryout.update({
       where: {
         id: tryoutData.id
@@ -159,6 +161,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                 number_cavity: tryoutData.InjectionProcess.mold.number_cavity,
                 desc_mold: tryoutData.InjectionProcess.mold.mold
               }
+
             },
             feedstock: {
               update: {
