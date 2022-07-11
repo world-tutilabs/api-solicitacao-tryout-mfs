@@ -18,7 +18,7 @@ body{
     background-color: #E0E2E8;
 }
 .content{
-    display: flex; 
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -70,11 +70,9 @@ body{
     gap: .5rem;
     font-weight: 600;
 }
-
 .icon img{
     height: 100%;
 }
-
 .informs{
     padding: 1rem;
     display: grid;
@@ -108,27 +106,26 @@ body{
     
 </head>
 <body>
-   <table>
+   
     <div class="content">
-        <div>
         <div class="container">
-            <div class="nav">
+            <div class="nav" style="justify-content: space-between;">
                 <div class="icon">
-                    <img  src="cid:unique@cid" cidalt="">
-                    <p>Solicitação de tryout</p>
+                    <img src="cid:unique@cid">
+                   <p>Solicitação de Tryout</p>
                 </div>
                 <div class="cod">
-                    <p>tryout:</p>
+                    <p>Tryout:</p>
                     <h2>{{ tryout }}</h2>
                 </div>
             </div>
             <div class="informs">
                 <div class="inform">
-                    <p>Cod. Produto:</p>
+                      <p>Cod. Produto:</p>
                     <h2>{{ produto }}</h2>
                 </div>
                 <div class="inform">
-                    <p>Cod. Molde:</p>
+                   <p>Cod. Molde:</p>
                     <h2>{{ molde }}</h2>
                 </div>
                 <div class="inform respon">
@@ -145,12 +142,9 @@ body{
             <div class="line"></div>
             <p>Descrição:</p>
             <div class="commit">
-                <p>{{ motivo }}</p>
+                 <p>{{ motivo }}</p>
             </div>
         </div>
-        </div>
     </div>
-    </table>
 </body>
 </html>
-  
