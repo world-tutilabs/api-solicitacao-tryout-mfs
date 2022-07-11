@@ -30,11 +30,11 @@ async homologateTryout({id, status, userHomologate, comment}: IHomologate): Prom
 //   }
 // }
 
-var source = fs.readFileSync(path.join(__dirname,'../../../assets/handlebars/emailStructure.hbs'), 'utf8');
+var source = fs.readFileSync(path.join(__dirname,'../../../utils/handlebars/emailStructure.hbs'), 'utf8');
 
 const attachments =  [{
   filename: 'iconMolde.png',
-  path: path.join( __dirname + '../../../../assets/img/iconMolde.png'),
+  path: path.join( __dirname + '../../../../utils/img/iconMolde.png'),
   cid: 'unique@cid'
 }]
 
