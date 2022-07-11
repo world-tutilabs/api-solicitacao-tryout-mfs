@@ -1,3 +1,9 @@
+export interface IAttachments {
+  filename: string;
+  path: string;
+  cid: string;
+}
+
 export interface IAddress {
      email: string;
      name: string;
@@ -8,6 +14,7 @@ export interface IMessage {
  from: IAddress;
  subject: string
  body: string;
+ attachments?: IAttachments[]
 }
 
 
