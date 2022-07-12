@@ -18,17 +18,17 @@ export class DbHomologationTryoutPCP implements IHomologationTryoutPCP{
     
 async homologateTryout({id, status, userHomologate, comment}: IHomologate): Promise<void> { 
 
-  // if( status == 3 || status < 0 || status > 5 ){ 
-  //    throw new AppError('Status indisponível', 403);
-  // }
+  if( status == 3 || status < 0 || status > 5 ){ 
+     throw new AppError('Status indisponível', 403);
+  }
 
   const findHomologate = await this.findByHomologateTryoutPCPRepository.findByHomologateTryout(id);
  
-// if(status == 4){
-//   if(findHomologate.status.id != 1){
-//      throw new AppError('Solicitação de Tryout não pode ser cancelada', 401);
-//   }
-// }
+if(status == 4){
+  if(findHomologate.status.id != 1){
+     throw new AppError('Solicitação de Tryout não pode ser cancelada', 401);
+  }
+}
 
 var source = fs.readFileSync(path.join(__dirname,'../../../utils/handlebars/emailStructure.hbs'), 'utf8');
 
