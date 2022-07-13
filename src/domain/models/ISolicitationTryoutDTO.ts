@@ -20,12 +20,10 @@ interface ILabor {
   
   interface IFeedstock {
     id: string
-    code: string
+    kg: number
     description: string
     id_injection_process?: string
-    
   }
-
 
 export interface IInjectioinProcessDTO { 
   
@@ -36,7 +34,7 @@ export interface IInjectioinProcessDTO {
     feedstock?: IFeedstock;
     labor?: ILabor
     mold?: IMold
-    // machine?: IMachine
+    machine?: IMachine
 }
 
 export interface ISolicitationTryoutDTO { 

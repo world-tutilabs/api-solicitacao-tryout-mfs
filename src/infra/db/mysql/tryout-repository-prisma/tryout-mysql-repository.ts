@@ -46,10 +46,15 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             },
             feedstock: {
               create: {
-                code: tryoutData.InjectionProcess.feedstocks.code,
+                kg: tryoutData.InjectionProcess.feedstocks.kg,
                 description: tryoutData.InjectionProcess.feedstocks.description
               }
-            }
+            },
+            machine: {
+              create: {
+                model: tryoutData.InjectionProcess.machine.model
+              }
+            }    
           }
         }
       }
@@ -63,7 +68,8 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
           include: {
             feedstock: true,
             labor: true,
-            mold: true
+            mold: true,
+            machine: true
           }
         }
       }
@@ -115,7 +121,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
               select: {
                 id: true,
                 description: true,
-                code: true
+                kg: true
               }
             },
 
@@ -132,6 +138,12 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                 id: true,
                 number_cavity: true,
                 desc_mold: true,
+              }
+            },
+            machine: {
+              select: {
+                id: true,
+                model: true
               }
             }
           }
@@ -197,8 +209,13 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             },
             feedstock: {
               update: {
-                code: tryoutData.InjectionProcess.feedstocks.code,
+                kg: tryoutData.InjectionProcess.feedstocks.kg,
                 description: tryoutData.InjectionProcess.feedstocks.description
+              }
+            },
+            machine: {
+              update: {
+                model: tryoutData.InjectionProcess.machine.model
               }
             }
           }

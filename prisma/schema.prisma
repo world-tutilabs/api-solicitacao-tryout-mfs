@@ -55,7 +55,7 @@ model InjectionProcess {
   feedstock       Feedstock?
   labor           Labor?
   mold            Mold?
-
+  machine         Machine?
   @@index([id_tryout], map: "id_tryou")
   @@map("injection_process")
 }
@@ -63,13 +63,19 @@ model InjectionProcess {
 model Feedstock {
   id                   String           @id @default(uuid())
   description          String           @db.VarChar(250)
-  code                 String           @db.VarChar(50)
+  kg                   Float           
   id_process_injection String           @unique
   fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout])
 
   @@map("feedstock")
 }
 
+model Machine {
+  id  String           @id @default(uuid())
+  model String         @db.VarChar(250)
+  id_injection_process String           @unique
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+}
 model Labor {
   id                   String           @id @default(uuid())
   amount               Int

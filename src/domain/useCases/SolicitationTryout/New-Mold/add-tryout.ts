@@ -9,8 +9,13 @@ interface Molde {
   mold: string
 }
 interface Feedstock {
-  code: string
+  kg: number
   description: string
+}
+interface Machine {
+  id: string
+  model: string
+  id_injection_process?: string
 }
 interface InjectionProcess {
   proc_technician: object
@@ -18,6 +23,7 @@ interface InjectionProcess {
   labor: Labor
   mold: Molde
   feedstocks: Feedstock
+  machine: Machine
 }
 interface Homolgation { 
   id: string,
