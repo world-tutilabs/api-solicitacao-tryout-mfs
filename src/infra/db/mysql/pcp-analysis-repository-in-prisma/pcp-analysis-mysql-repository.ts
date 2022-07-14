@@ -71,7 +71,7 @@ IFindByHomologateTryoutPCPRepository {
                            mold: true,
                            feedstock: true,
                            labor: true,
-
+                           machine: true
                         }
                      },
                   }

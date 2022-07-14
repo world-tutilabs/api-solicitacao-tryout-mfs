@@ -3,7 +3,6 @@ import { IListTryoutRepository } from '../../../../data/protocols/db/Solicitatio
 import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
 import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
 import { UpdateTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout';
-import { AppError } from '../../../../presentation/errors/AppError';
 import { PrismaHelper } from '../helpers/prisma-helper';
 
 export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
