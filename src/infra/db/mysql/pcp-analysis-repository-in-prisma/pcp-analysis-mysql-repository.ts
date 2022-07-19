@@ -68,7 +68,10 @@ IFindByHomologateTryoutPCPRepository {
                            id_tryout: true,
                            proc_technician: true,
                            quantity: true,
-                           mold: true
+                           mold: true,
+                           feedstock: true,
+                           labor: true,
+                           machine: true
                         }
                      },
                   }

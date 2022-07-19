@@ -29,7 +29,8 @@ export class MailtrapMailProvider implements IMailProvider{
                 address: message.from.email,
             },
             subject: message.subject,
-            html: message.body
+            html: message.body,
+            attachments: message.attachments
         })
 
      
