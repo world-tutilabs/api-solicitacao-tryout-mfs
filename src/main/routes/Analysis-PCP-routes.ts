@@ -7,6 +7,6 @@ import { verifyLogger, verifyPCPlogger } from "../middlewares";
 
 export default (router: Router): void => {
     router.patch("/homologate/:id", verifyLogger, verifyPCPlogger, adaptRoute(makeHomologateTryoutController()))
-    router.get("/homologate", adaptRoute(makeListTryoutPCPController()))
+    router.get("/homologate", verifyLogger, verifyPCPlogger,adaptRoute(makeListTryoutPCPController()))
 
 } 
