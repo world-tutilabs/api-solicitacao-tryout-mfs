@@ -41,9 +41,9 @@ services:
     restart: always
     command: bash -c "yarn --only=prod && yarn build && yarn start"
     env_file:
-      - ../Solicitação-de-Tryout-front/.env
+      - ../front-end/.env
     volumes:
-      - ../Solicitação-de-Tryout-front/:/usr/src/front-end-solicitation-tryout/
+      - ../front-end/:/usr/src/front-end-solicitation-tryout/
     ports:
       - "8500:8500"
     networks:
