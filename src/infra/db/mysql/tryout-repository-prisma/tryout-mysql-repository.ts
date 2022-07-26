@@ -167,6 +167,9 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             }
           }
         ]
+      },
+      orderBy:{
+        number_tryout: 'desc'
       }
     })
 

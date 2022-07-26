@@ -90,6 +90,11 @@ IFindByHomologateTryoutPCPRepository {
               },
               where: {
                fk_homologation_status: 3
+              },
+              orderBy: {
+               solicitation:{
+                  number_tryout:'desc'
+               }  
               }
               
       })
