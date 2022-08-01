@@ -5,8 +5,8 @@ import { makeListTryoutPCPController } from "../factories/analysis-pcp-tryout-fa
 import { makeListTryoutController } from "../factories/solicitation-tryout-factory/list-tryout-factory";
 import { verifyLogger, verifyPCPlogger } from "../middlewares";
 
+
 export default (router: Router): void => {
     router.patch("/homologate/:id", verifyLogger, verifyPCPlogger, adaptRoute(makeHomologateTryoutController()))
-    router.get("/homologate", verifyLogger, verifyPCPlogger,adaptRoute(makeListTryoutPCPController()))
-
+    router.get("/homologate", verifyLogger,verifyPCPlogger,adaptRoute(makeListTryoutPCPController()))
 } 

@@ -52,11 +52,11 @@ export const verifyEngLogger = async (req: Request, res: Response, next: NextFun
 
 export const verifyPCPlogger = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { user } = req.body
-     
-  if (    user.nivel_de_acesso.descricao === "eng_analista"
-       || user.nivel_de_acesso.descricao === "pcp_injecao"  
-       || user.nivel_de_acesso.descricao === "pcp_iacabamento"
-       || user.nivel_de_acesso.descricao === "eng_admin"
+     console.log(user)
+  if (   
+        user.nivel_de_acesso.descricao === "pcp_injecao"  
+       || user.nivel_de_acesso.descricao === "pcp_acabamento"
+   
        ) {
        next()
   }else{
