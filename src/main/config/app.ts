@@ -19,7 +19,6 @@ app.use(
     next: NextFunction,
   ) => {
     if (error instanceof AppError) {
-      console.log(error.message);
       
       return response
         .status(error.statusCode)

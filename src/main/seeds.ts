@@ -7,7 +7,8 @@ const seeds = async (): Promise<void> =>  {
      { id: 1, description: 'Aprovado' },
      { id: 2, description: 'Reprovado' },
      { id: 3, description: 'Revisao'},
-     { id: 4, description: 'Cancelado' }
+     { id: 4, description: 'Cancelado'},
+     { id: 5, description: 'Concluido' }
   ]
     const result = await PrismaHelper.prisma.homologationStatus.createMany({
       data

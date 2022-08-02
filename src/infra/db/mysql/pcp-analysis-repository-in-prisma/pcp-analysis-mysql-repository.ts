@@ -24,7 +24,7 @@ IFindByHomologateTryoutPCPRepository {
                  fk_homologation_status: status,
                  homologation_user: userHomologate,
                  homologation_at: new Date(),
-                 comment,
+                 comment, 
               },
               where: {
                  id

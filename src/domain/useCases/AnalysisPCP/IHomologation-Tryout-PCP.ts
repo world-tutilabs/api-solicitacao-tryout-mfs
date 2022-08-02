@@ -2,9 +2,9 @@
 export interface IHomologate {
     id: string;
     fk_solicitation?: string;
-    userHomologate: object;
+    userHomologate?: object;
     status: number; 
-    comment: string;
+    comment?: string;
 }
 
 export interface IHomologationTryoutPCP {
