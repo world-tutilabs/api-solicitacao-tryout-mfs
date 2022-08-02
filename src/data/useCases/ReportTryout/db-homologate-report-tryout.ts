@@ -4,9 +4,9 @@ import { IHomologate } from "../../../domain/useCases/AnalysisPCP/IHomologation-
 import { IReportTryoutHomologation } from "../../../domain/useCases/ReportTryout/IReportTryoutHomologation";
 var fs = require('fs');
 import { AppError } from "../../../presentation/errors/AppError";
-import { IFindByHomologateTryoutPCPRepository } from "../../protocols/db/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
-import { IHomologationRepositoryInRepository } from "../../protocols/db/AnalysisPCP/homologate-pcp-repository";
-import { IFindByRequestTryoutRepository } from "../../protocols/db/ReportTryout/find-by-request-tryout-repository";
+import { IFindByHomologateTryoutPCPRepository } from "../../protocols/database/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
+import { IHomologationRepositoryInRepository } from "../../protocols/database/AnalysisPCP/homologate-pcp-repository";
+import { IFindByRequestTryoutRepository } from "../../protocols/database/ReportTryout/find-by-request-tryout-repository";
 
 export class DbHomologateReportTryout implements IReportTryoutHomologation{
 

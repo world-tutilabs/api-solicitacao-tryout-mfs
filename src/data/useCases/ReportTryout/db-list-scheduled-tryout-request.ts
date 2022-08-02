@@ -4,7 +4,7 @@ import { IListScheduledTryoutRequest } from "../../../domain/useCases/ReportTryo
 
 var fs = require('fs');
 
-import { IListRequestTryoutHomologateRepository } from "../../protocols/db/ReportTryout/list-request-tryout-homologate-repository";
+import { IListRequestTryoutHomologateRepository } from "../../protocols/database/ReportTryout/list-request-tryout-homologate-repository";
 
 export class DbListScheduledTryoutRequest implements IListScheduledTryoutRequest{
 

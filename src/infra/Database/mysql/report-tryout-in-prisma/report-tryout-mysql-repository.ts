@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { IFindByRequestTryoutRepository } from "../../../../data/protocols/db/ReportTryout/find-by-request-tryout-repository";
-import { IListRequestTryoutHomologateRepository } from "../../../../data/protocols/db/ReportTryout/list-request-tryout-homologate-repository";
+import { IFindByRequestTryoutRepository } from "../../../../data/protocols/database/ReportTryout/find-by-request-tryout-repository";
+import { IListRequestTryoutHomologateRepository } from "../../../../data/protocols/database/ReportTryout/list-request-tryout-homologate-repository";
 import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
 
 import { PrismaHelper } from "../helpers/prisma-helper";

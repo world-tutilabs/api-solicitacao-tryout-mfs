@@ -1,5 +1,5 @@
-import { AddTryoutRepository } from '../../../../data/protocols/db/SolicitationTryout/New-Mold/add-tryout-repository';
-import { IListTryoutRepository } from '../../../../data/protocols/db/SolicitationTryout/New-Mold/list-tryout-repository';
+import { AddTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository';
+import { IListTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository';
 import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
 import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
 import { UpdateTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout';

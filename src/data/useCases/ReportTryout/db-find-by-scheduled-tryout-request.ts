@@ -1,7 +1,7 @@
 
 import { IHomologateTryoutDTO } from "../../../domain/models/IHomologateTryoutDTO";
 import { IFindByScheduledTryoutRequest } from "../../../domain/useCases/ReportTryout/IFindByScheduledTryoutRequest";
-import { IFindByRequestTryoutRepository } from "../../protocols/db/ReportTryout/find-by-request-tryout-repository";
+import { IFindByRequestTryoutRepository } from "../../protocols/database/ReportTryout/find-by-request-tryout-repository";
 
 var fs = require('fs');
 

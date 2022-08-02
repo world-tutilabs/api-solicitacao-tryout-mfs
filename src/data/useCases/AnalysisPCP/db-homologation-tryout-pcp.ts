@@ -3,8 +3,8 @@ import path from "path";
 var fs = require('fs');
 import { IHomologate, IHomologationTryoutPCP } from "../../../domain/useCases/AnalysisPCP/IHomologation-Tryout-PCP";
 import { AppError } from "../../../presentation/errors/AppError";
-import { IFindByHomologateTryoutPCPRepository } from "../../protocols/db/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
-import { IHomologationRepositoryInRepository } from "../../protocols/db/AnalysisPCP/homologate-pcp-repository";
+import { IFindByHomologateTryoutPCPRepository } from "../../protocols/database/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
+import { IHomologationRepositoryInRepository } from "../../protocols/database/AnalysisPCP/homologate-pcp-repository";
 import { IMailProvider } from "../../protocols/providers/IMailProvider";
 
 
