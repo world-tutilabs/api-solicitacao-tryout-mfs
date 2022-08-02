@@ -165,6 +165,11 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             homologation: {
               fk_homologation_status: 3,
             }
+          },
+          {
+            homologation: {
+              fk_homologation_status: 5,
+            }
           }
         ]
       },
