@@ -5,8 +5,6 @@ import { unauthorized } from '../../presentation/helpers/http-helper'
 export const verifyLogger = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       
      const isValidToken = req.headers.authorization
-  console.log(isValidToken);
-  
       if (!isValidToken) {
         const {body,statusCode} = unauthorized()
          res.status(statusCode).json(body)
@@ -25,9 +23,7 @@ export const verifyLogger = async (req: Request, res: Response, next: NextFuncti
     }
   
     const authorization = response.data.user.User_Sistema.find(us => us.sistema.descricao === "RRIM") && response.data.user.status
-   console.log(response.data);
-   
-   
+
     if (!authorization) {
          res.status(401).json({ status: 'error', message: 'not authorized' });
     }
@@ -52,7 +48,6 @@ export const verifyEngLogger = async (req: Request, res: Response, next: NextFun
 
 export const verifyPCPlogger = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { user } = req.body
-     console.log(user)
   if (   
         user.nivel_de_acesso.descricao === "pcp_injecao"  
        || user.nivel_de_acesso.descricao === "pcp_acabamento"
