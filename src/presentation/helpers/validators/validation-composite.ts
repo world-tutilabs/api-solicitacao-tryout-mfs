@@ -1,5 +1,5 @@
-import { PrismaHelper } from '../../../infra/db/mysql/helpers/prisma-helper'
-import { TryoutMysqlRepository } from '../../../infra/db/mysql/tryout-repository-prisma/tryout-mysql-repository'
+import { PrismaHelper } from '../../../infra/Database/mysql/helpers/prisma-helper'
+import { TryoutMysqlRepository } from '../../../infra/Database/mysql/tryout-repository-prisma/tryout-mysql-repository'
 import { Validation } from './validation'
 
 export class ValidationComposite implements Validation {

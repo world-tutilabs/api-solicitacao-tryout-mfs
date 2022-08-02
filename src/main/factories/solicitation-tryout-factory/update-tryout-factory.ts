@@ -1,5 +1,5 @@
 import { DbUpdateTryoutRepository } from "../../../data/useCases/SolicitationTryout/New-Mold/db-update-tryout"
-import { TryoutMysqlRepository } from "../../../infra/db/mysql/tryout-repository-prisma/tryout-mysql-repository"
+import { TryoutMysqlRepository } from "../../../infra/Database/mysql/tryout-repository-prisma/tryout-mysql-repository"
 import { UpdateTryoutController } from "../../../presentation/controllers/tryout-controllers/update-Trayout-Controller"
 import { Controller } from "../../../presentation/protocols"
 import { makeUpdateTryoutValidation } from "./validations/update-tryout-validation-factory"
