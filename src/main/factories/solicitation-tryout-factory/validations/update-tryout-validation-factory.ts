@@ -1,4 +1,4 @@
-import { TryoutMysqlRepository } from "../../../../infra/db/mysql/tryout-repository-prisma/tryout-mysql-repository"
+import { TryoutMysqlRepository } from "../../../../infra/Database/mysql/tryout-repository-prisma/tryout-mysql-repository"
 import { InvalidFieldValidation } from "../../../../presentation/helpers/validators/invalid-field-validations"
 import { RequiredFieldValidation } from "../../../../presentation/helpers/validators/required-field-validation"
 import { Validation } from "../../../../presentation/helpers/validators/validation"

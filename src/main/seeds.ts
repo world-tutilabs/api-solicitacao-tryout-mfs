@@ -1,4 +1,4 @@
-import { PrismaHelper } from "../infra/db/mysql/helpers/prisma-helper";
+import { PrismaHelper } from "../infra/Database/mysql/helpers/prisma-helper";
 const seeds = async (): Promise<void> =>  {
  let isValid = await PrismaHelper.prisma.homologationStatus.count()
  if (isValid == 0) {
