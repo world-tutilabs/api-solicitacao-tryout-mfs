@@ -1,8 +1,8 @@
 import { prisma } from "@prisma/client";
-import { IFindByHomologateTryoutPCPRepository } from "../../../../data/protocols/db/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
-import { IHomologationRepositoryInRepository } from "../../../../data/protocols/db/AnalysisPCP/homologate-pcp-repository";
-import { IListTryoutAnalysisPCRepository } from "../../../../data/protocols/db/AnalysisPCP/list-pcp-analysis-repository";
-import { IListTryoutRepository } from "../../../../data/protocols/db/SolicitationTryout/New-Mold/list-tryout-repository";
+import { IFindByHomologateTryoutPCPRepository } from "../../../../data/protocols/database/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
+import { IHomologationRepositoryInRepository } from "../../../../data/protocols/database/AnalysisPCP/homologate-pcp-repository";
+import { IListTryoutAnalysisPCRepository } from "../../../../data/protocols/database/AnalysisPCP/list-pcp-analysis-repository";
+import { IListTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository";
 import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { IHomologate } from "../../../../domain/useCases/AnalysisPCP/IHomologation-Tryout-PCP";
