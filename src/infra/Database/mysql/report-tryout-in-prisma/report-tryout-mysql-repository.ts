@@ -41,13 +41,16 @@ export class ReportTryoutMysqlRepository implements IFindByRequestTryoutReposito
             where: {
                 id,
                 status: {
-                    id: 1
+                     OR:[
+                    { id: 1},
+                    { id: 5}
+                     ]
                 },
-                solicitation:{
-                    programmed_date:{
-                        gte: new Date(dayjs().format('YYYY-MM-DD'))
-                    }
-                }
+                // solicitation:{
+                //     programmed_date:{
+                //         gte: new Date(dayjs().format('YYYY-MM-DD'))
+                //     }
+                // }
             }
         })
         return data;

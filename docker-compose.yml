@@ -32,6 +32,7 @@ services:
       - "5000:3000"
     networks:
       - back-end-tryout
+
   front:
     depends_on:
       - api
