@@ -45,7 +45,7 @@ IFindByHomologateTryoutPCPRepository {
       }
 
     }
-   async list(): Promise<IHomologateTryoutDTO[]> {
+   async list(limit?: number, offset?: number): Promise<IHomologateTryoutDTO[]> {
 
       try {
 
@@ -88,14 +88,18 @@ IFindByHomologateTryoutPCPRepository {
                   }
                },
               },
+
               where: {
-               fk_homologation_status: 3
+               fk_homologation_status: 3,
+               
               },
               orderBy: {
                solicitation:{
                   number_tryout:'desc'
-               }  
-              }
+               }
+              },
+              take: Number(limit),
+              skip: Number(offset)
               
       })
 

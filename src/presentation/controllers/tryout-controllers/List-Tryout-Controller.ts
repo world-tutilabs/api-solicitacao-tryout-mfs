@@ -10,8 +10,10 @@ export class ListTryoutController  implements Controller {
     async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
       
         try {
-
-           const list = await this.listTryout.list();
+            const { limit, offset} = httpRequest.query
+              console.log({httpRequest});
+              
+           const list = await this.listTryout.list(limit,offset);
 
            return ok(list);
 

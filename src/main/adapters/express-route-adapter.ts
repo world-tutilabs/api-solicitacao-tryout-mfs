@@ -1,11 +1,12 @@
-import {Request, Response} from 'express'
+import {query, Request, Response} from 'express'
 import { Controller } from '../../presentation/protocols'
 
 export const adaptRoute = (controller: Controller) => {
   return async function (req: Request, res: Response) {
     const httpRequest = {
       body: req.body,
-      params: req.params
+      params: req.params,
+      query: req.query
     }
     const httpResponse = await controller.handle(httpRequest)
     if (httpResponse.statusCode === 200 || httpResponse.statusCode === 204 ) {

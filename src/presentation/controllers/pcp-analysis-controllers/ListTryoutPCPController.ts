@@ -10,7 +10,9 @@ export class ListTryoutPCPController implements Controller {
 
     async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
              
-        const data = await this.listTryoutPCP.listAnalysisPCP();
+         const { limit, offset} = httpRequest.query
+          
+        const data = await this.listTryoutPCP.listAnalysisPCP(limit, offset);
 
         return ok(data);    
     

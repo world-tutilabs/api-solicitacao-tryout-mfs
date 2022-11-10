@@ -80,8 +80,8 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
 
 
 
-  async list(): Promise<ISolicitationTryoutDTO[]> {
-
+  async list(limit?: number, offset?: number): Promise<ISolicitationTryoutDTO[]> {
+  
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
@@ -175,7 +175,9 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
       },
       orderBy:{
         number_tryout: 'desc'
-      }
+      },
+      take:Number(limit),
+      skip: Number(offset)
     })
 
     return result;

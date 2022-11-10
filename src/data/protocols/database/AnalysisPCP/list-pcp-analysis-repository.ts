@@ -2,6 +2,6 @@ import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryou
 
 export interface IListTryoutAnalysisPCRepository {
 
-    list(): Promise<IHomologateTryoutDTO[]>
+    list(limit?: number, offset?: number): Promise<IHomologateTryoutDTO[]>
 
 }

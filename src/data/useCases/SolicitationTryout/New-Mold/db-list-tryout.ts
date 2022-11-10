@@ -7,8 +7,9 @@ export class DbListTryout implements IListTryout{
     
     constructor(private readonly listTryoutRepository: IListTryoutRepository){}
     
-    list(): Promise<ISolicitationTryoutDTO[]> {
-       return this.listTryoutRepository.list();
+    list(limit?: number, offset?: number): Promise<ISolicitationTryoutDTO[]> {
+        return this.listTryoutRepository.list(limit,offset);
+
     }
 
     

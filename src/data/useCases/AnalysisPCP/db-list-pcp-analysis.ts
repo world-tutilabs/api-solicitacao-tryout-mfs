@@ -7,8 +7,8 @@ export class DbListAnalisysPCP implements IListTryoutPCP{
     constructor(
         private readonly listTryoutAnalysisPCRepository: IListTryoutAnalysisPCRepository,
     ){}
-    listAnalysisPCP(): Promise<IHomologateTryoutDTO[]> {
-       return this.listTryoutAnalysisPCRepository.list();
+    listAnalysisPCP(limit?: number, offset?: number): Promise<IHomologateTryoutDTO[]> {
+       return this.listTryoutAnalysisPCRepository.list(limit, offset);
     }
 
 
