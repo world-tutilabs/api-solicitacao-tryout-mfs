@@ -8,43 +8,39 @@ export const verifyLogger = async (req: Request, res: Response, next: NextFuncti
  
   
       if (!isValidToken) {
-        const {body,statusCode} = unauthorized()
-         res.status(statusCode).json(body)
+        // const {body,statusCode} = unauthorized()
+         res.status(401).json("Token Invalidol")
          return;
       }
      
       const [_, token] = isValidToken.split(" ")
      
-      try {
-        const response = await http.post('/session/verify', {}, { headers: {
+    try {
+  
+    const response = await http.post('/session/verify', {}, { headers: {
           Authorization: `Bearer ${token}`
       }})
 
-    if (response.status == 401) {
-         res.status(401).json({ status: 'error', message: 'not authorized' });
-    }
   
-    // const authorization = response.data.user.User_Sistema.find(us => us.sistema.descricao === "TRYOUT") && response.data.user.status
-   
-   
-    // if (!authorization) {
-    //      res.status(401).json({ status: 'error', message: 'not authorized' });
-    // }
+    
     req.body.user = response.data.user
-    next();
+   return next();
 
       } catch (error) {
         res.status(401).json({ status: 'error', message: 'not authorized' });
+        return;
       }
     
 } 
 
 export const verifyEngLogger = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const {user} = req.body
+  const { user } = req.body
+
   if (user.nivel_de_acesso.descricao === "eng_analista" || user.nivel_de_acesso.descricao === "eng_admin") {
-    next()
+   return next()
   } else {
     res.status(401).json({ status: 'error', message: 'not authorized' });
+    return;
   } 
 }
 
@@ -58,9 +54,10 @@ export const verifyPCPlogger = async (req: Request, res: Response, next: NextFun
 
    
        ) {
-       next()
+      return next()
   }else{
    res.status(401).json({ status: 'error', message: 'not authorized' });
+  return;
   }
 
 } 
