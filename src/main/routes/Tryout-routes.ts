@@ -9,7 +9,7 @@ import { verifyEngLogger, verifyLogger, verifyPCPlogger } from "../middlewares"
 export default (router: Router): void => {
   router.get('/list',verifyLogger,adaptRoute(makeListTryoutController()))
   router.post('/signup',verifyLogger,verifyEngLogger,adaptRoute(makeSignUpTryoutController()))
-  router.put('/update/:id',verifyLogger, verifyPCPlogger, adaptRoute(makeUpdateTryoutController()))
+  router.put('/update/:id',verifyLogger, adaptRoute(makeUpdateTryoutController()))
 }
 
 

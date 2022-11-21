@@ -36,7 +36,7 @@ export const verifyLogger = async (req: Request, res: Response, next: NextFuncti
 export const verifyEngLogger = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { user } = req.body
 
-  if (user.nivel_de_acesso.descricao === "eng_analista" || user.nivel_de_acesso.descricao === "eng_admin") {
+  if (user.nivel_de_acesso.descricao === "eng_analista" ) {
    return next()
   } else {
     res.status(401).json({ status: 'error', message: 'not authorized' });
