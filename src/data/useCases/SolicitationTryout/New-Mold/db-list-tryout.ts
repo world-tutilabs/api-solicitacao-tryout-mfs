@@ -1,13 +1,15 @@
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { IListTryout } from "../../../../domain/useCases/SolicitationTryout/New-Mold/list-tryout";
-import { IListTryoutRepository } from "../../../protocols/db/SolicitationTryout/New-Mold/list-tryout-repository";
+import { AppError } from "../../../../presentation/errors/AppError";
+import { IListTryoutRepository } from "../../../protocols/database/SolicitationTryout/New-Mold/list-tryout-repository";
 
 export class DbListTryout implements IListTryout{
     
     constructor(private readonly listTryoutRepository: IListTryoutRepository){}
     
-    list(): Promise<ISolicitationTryoutDTO[]> {
-       return this.listTryoutRepository.list();
+    list(limit?: number, offset?: number): Promise<ISolicitationTryoutDTO[]> {
+        return this.listTryoutRepository.list(limit,offset);
+
     }
 
     

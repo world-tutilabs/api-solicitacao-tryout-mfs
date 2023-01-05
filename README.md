@@ -18,8 +18,8 @@ Software Solicitação de Tryout - MFS desenvolvido pelo Tutilabs utilizando tec
 - [ ] Extrair informações do token
 
 ## Analise de PCP
-- [ ] Listar Solicitação de Tryout em andamento
-- [ ] Aprovar Solicitação em andamento
+- [X ] Listar Solicitação de Tryout em andamento
+- [X ] Aprovar Solicitação em andamento
 - [ ] Adicionar um comentario no Tryout ( Update )
 - [ ] Reprovar Solicitação de Tryout em andamento.
 - [ ] Cancelar uma solicitação de Tryout

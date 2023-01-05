@@ -1,4 +1,4 @@
-import { TryoutModel } from "../../../models/tryout"
+import { ISolicitationTryoutDTO } from "../../../models/ISolicitationTryoutDTO"
 
 interface Labor {
   description: string
@@ -9,8 +9,13 @@ interface Molde {
   mold: string
 }
 interface Feedstock {
-  code: string
+  kg: number
   description: string
+}
+interface Machine {
+  id: string
+  model: string
+  id_injection_process?: string
 }
 interface InjectionProcess {
   proc_technician: object
@@ -18,6 +23,22 @@ interface InjectionProcess {
   labor: Labor
   mold: Molde
   feedstocks: Feedstock
+  machine: Machine
+}
+interface Homolgation { 
+  id: string,
+  fk_solicitation: string,
+  created_user: object,
+  created_at: Date 
+  homologation_user: Object
+  homologation_at: Date
+  comment: string
+}
+export interface User {
+  nome_completo: string
+  matricula: string
+  nivel_de_acesso: object
+  email: string,
 }
 export interface AddTryoutModel {
   code_sap: string
@@ -26,9 +47,11 @@ export interface AddTryoutModel {
   date: Date
   reason: string
   status: number
-  InjectionProcess: InjectionProcess 
+  InjectionProcess: InjectionProcess
+  homologation?: Homolgation
+  user: User 
 }
 
 export interface AddTryout {
-  add (tryout: AddTryoutModel ): Promise<TryoutModel>
+  add (tryout: AddTryoutModel ): Promise<ISolicitationTryoutDTO>
 }
