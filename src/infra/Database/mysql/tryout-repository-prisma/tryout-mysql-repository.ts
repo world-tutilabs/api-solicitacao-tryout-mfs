@@ -1,11 +1,12 @@
 import { AddTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository';
-import { IListTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository';
+import { IListByStatusTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository copy';
+import { IListTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository';
 import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
 import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
 import { UpdateTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout';
 import { PrismaHelper } from '../helpers/prisma-helper';
 
-export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository {
+export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository, IListByStatusTryoutRepository {
   async add(tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> {
     const result = await PrismaHelper.prisma.solicitationTryout.create({
       data: {
@@ -80,7 +81,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
 
 
 
-  async list(limit?: number, offset?: number): Promise<ISolicitationTryoutDTO[]> {
+  async list(limit?: number, offset?: number, status?: number): Promise<ISolicitationTryoutDTO[]> {
   
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
@@ -183,6 +184,101 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
     return result;
 
   }
+
+  async listByStatus(limit?: number, offset?: number, status?: number): Promise<{all: number, list: ISolicitationTryoutDTO[]}> {
+
+    const result = await PrismaHelper.prisma.solicitationTryout.findMany({
+      select: {
+        id: true,
+        number_tryout: true,
+        code_sap: true,
+        desc_product: true,
+        client: true,
+        programmed_date: true,
+        reason: true,
+        homologation: {
+          select: {
+            id: true,
+            fk_solicitation: true,
+            created_user: true,
+            created_at: true,
+            homologation_user: true,
+            homologation_at: true,
+            comment: true,
+            status: {
+              select: {
+                id: true,
+                description: true
+              }
+            }
+          }
+        },
+        injectionProcess: {
+
+          select: {
+            id: true,
+            id_tryout: true,
+            proc_technician: true,
+            quantity: true,
+
+            feedstock: {
+              select: {
+                id: true,
+                description: true,
+                kg: true
+              }
+            },
+
+            labor: {
+              select: {
+                id: true,
+                description: true,
+                amount: true,
+              }
+            },
+
+            mold: {
+              select: {
+                id: true,
+                number_cavity: true,
+                desc_mold: true,
+              }
+            },
+            machine: {
+              select: {
+                id: true,
+                model: true
+              }
+            }
+          }
+        },
+      },
+
+      where: {
+        homologation:{
+          fk_homologation_status: Number(status)
+        }
+      },
+      orderBy:{
+        number_tryout: 'desc'
+      },
+      take:Number(limit),
+      skip: Number(offset)
+    })
+
+    const all = await PrismaHelper.prisma.solicitationTryout.count({
+      where:{
+        homologation:{
+          fk_homologation_status: Number(status)
+        }
+      }
+    })
+
+
+      return {all, list: result};
+
+  }
+
   async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
     const result = await PrismaHelper.prisma.solicitationTryout.update({
       where: {

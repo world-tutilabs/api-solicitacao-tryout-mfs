@@ -10,3 +10,4 @@ export const makeListTryoutController = (): Controller => {
     const listTryoutController = new ListTryoutController(dbListTryout);
     return listTryoutController;
 }
+
