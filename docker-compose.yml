@@ -44,7 +44,7 @@ services:
     env_file:
       - ../front-end/.env
     volumes:
-      - ../front-end/:/usr/src/front-end-solicitation-tryout/
+      - ../front-end:/usr/src/front-end-solicitation-tryout/
     ports:
       - "8500:8500"
     networks:
