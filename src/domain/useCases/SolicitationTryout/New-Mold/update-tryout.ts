@@ -1,4 +1,4 @@
-import { TryoutModel } from "../../../models/tryout"
+import { ISolicitationTryoutDTO } from "../../../models/ISolicitationTryoutDTO"
 
 interface Labor {
   description: string
@@ -8,32 +8,33 @@ interface Molde {
   number_cavity: number
   mold: string
 }
-interface Machine {
-  model: string
-}
-interface Peripheral {
-  peripheral: object
-}
 interface Feedstock {
-  code: string
+  kg: number
   description: string
 }
+interface Machine {
+  id: string
+  model: string
+  id_injection_process: string
+}
 interface InjectionProcess {
+  proc_technician: object
+  quantity: number
   labor: Labor
   mold: Molde
-  machine: Machine
   feedstocks: Feedstock
-  peripherals: Peripheral
+  machine: Machine
 }
 export interface UpdateTryoutModel {
+  id: string
   code_sap: string
   product_description: string
   client: string
   date: Date
-  reason: number
+  reason: string
   status: number
   InjectionProcess: InjectionProcess 
 }
 export interface UpdateTryout {
-  update (id: number, tryout: UpdateTryoutModel): Promise<TryoutModel>
+  update (tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO>
 }

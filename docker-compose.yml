@@ -1,11 +1,11 @@
 version: '3'
 services:
-  mysql:
-    container_name: mysql-container
+  mysql-solicitation-tryout:
+    container_name: mysql-container-solicitation-tryout
     image: mysql:8
     restart: always
     volumes:
-      - ./data:/data/db
+      - ./db:/var/lib/mysql
     ports:
       - "1234:3306"
     environment:
@@ -15,23 +15,42 @@ services:
     networks:
       - back-end-tryout
   api:
-    container_name: back-end-tryout-container
+    depends_on:
+      - mysql-solicitation-tryout
+    container_name: back-end-solicitation-tryout-container
     image: node:16
-    working_dir: /usr/src/back-end-tryout
+    working_dir: /usr/src/back-end-solicitation-tryout
     restart: always
-    command: bash -c "npm install --only=prod && npx prisma generate && npx prisma db push && npm run debug"
+    command: bash -c "npm install --only=prod && npx prisma generate && npx prisma db push && npm run seed && npm run debug"
     env_file:
       - .env
     volumes:
-      - ./dist/:/usr/src/back-end-tryout/dist
-      - ./package.json:/usr/src/back-end-tryout/package.json
-      - ./prisma:/usr/src/back-end-tryout/prisma
+      - ./dist/:/usr/src/back-end-solicitation-tryout/dist
+      - ./package.json:/usr/src/back-end-solicitation-tryout/package.json
+      - ./prisma:/usr/src/back-end-solicitation-tryout/prisma
     ports:
-      - "3000:3000"
-    links: 
-      - mysql
+      - "5000:3000"
     networks:
       - back-end-tryout
+
+  front:
+    depends_on:
+      - api
+    container_name: front-end-solicitation-tryout-container
+    image: node:16
+    working_dir: /usr/src/front-end-solicitation-tryout
+    restart: always
+    command: bash -c "yarn --only=prod && yarn build && yarn start"
+    env_file:
+      - ../front-end/.env
+    volumes:
+      - ../front-end:/usr/src/front-end-solicitation-tryout/
+    ports:
+      - "8500:8500"
+    networks:
+      - back-end-tryout
+
 networks:
   back-end-tryout:
+      name: back-end-solicitation-tryout 
       driver: bridge

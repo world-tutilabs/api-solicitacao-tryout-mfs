@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style></style>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Email</title>
+
+     <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #5a5252;
+    background-color: #E0E2E8;
+}
+.content{
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container{
+    width: 25rem;
+    height: 25rem;
+    background-color: #f9f9f9;
+    
+    overflow: hidden;
+    border-radius: 1rem 1rem 2rem 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.conteinerComent{
+    
+    padding: .2rem 1rem;
+    width: 25rem;
+    min-height: 7rem;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    position: relative;
+    bottom: .5rem;
+    border-radius: 2rem 2rem 1rem 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 8px;
+}
+.line{
+    width: 100%;
+    height: 1px;
+    border-top: 3px dashed #5a5252;
+    margin-bottom: .5rem;
+}
+.nav{
+    background-color: #1CC88A;
+    color: #f9f9f9;
+    height: 7rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon{
+    border-right: 2px solid #f9f9f9;
+    width: 50%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-weight: 600;
+}
+.icon img{
+    height: 100%;
+}
+.informs{
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+}
+.respon h2{
+    white-space: nowrap; 
+    width: 24rem; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    color: #1CC88A;
+    font-weight: 400;
+}
+.status{
+    border: 2px solid #5a5252;
+    color: #5a5252;
+    padding: .3rem 1rem;
+    width: fit-content;
+    border-radius: 4rem;
+    display: flex;
+    align-items: center;
+    line-height: 1rem;
+    margin: 0 1rem 0 auto;
+}
+.commit{
+    margin-top: 1rem;
+    width: 100%;
+    font-weight: 500;
+}
+    </style>
+    
+</head>
+<body>
+   <table>
+    <div class="content">
+        <div class="container">
+            <div class="nav" style="justify-content: space-between;">
+                <div class="icon">
+                    <img src="cid:unique@cid">
+                   <p>Solicitação de Tryout</p>
+                </div>
+                <div class="cod">
+                    <p>Tryout:</p>
+                    <h2>{{ tryout }}</h2>
+                </div>
+            </div>
+            <div class="informs">
+                <div class="inform">
+                      <p>Cod. Produto:</p>
+                    <h2>{{ produto }}</h2>
+                </div>
+                <div class="inform">
+                   <p>Cod. Molde:</p>
+                    <h2>{{ molde }}</h2>
+                </div>
+                <div class="inform respon">
+                    <p>Responsavel PCP:</p>
+                    <h2>{{ autor }}</h2>
+                    <h6> {{data }}</h6>
+                </div>
+                <div class="status">
+                    <h3>{{ status }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="conteinerComent">
+            <div class="line"></div>
+            <p>Descrição:</p>
+            <div class="commit">
+                 <p>{{ motivo }}</p>
+            </div>
+        </div>
+    </div>
+    </table>
+</body>
+</html>
