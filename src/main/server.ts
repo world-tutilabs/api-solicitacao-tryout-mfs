@@ -16,5 +16,5 @@
 //     console.log("Server running")
 // });
 import app from './config/app'
-const port = 3000 
+const port = 5001 
 app.listen(port, ()=> console.log(`Server Running at http://localhost:${port}`))
