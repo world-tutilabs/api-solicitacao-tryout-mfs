@@ -9,7 +9,7 @@ import { verifyEngLogger, verifyLogger, verifyPCPlogger } from "../middlewares"
 export default (router: Router): void => {
   router.patch('/endingTryout/:id',verifyLogger,verifyEngLogger,adaptRoute(makeEndingTryoutRequestController()))
   router.get('/listApprovedTryouts',verifyLogger,verifyEngLogger,adaptRoute(makeListScheduledTryoutRequestController()))
-  router.get('/findApprovedTryout/:id',verifyLogger,verifyEngLogger,adaptRoute(makeFindByScheduledTryoutRequestController()))
+  router.get('/findApprovedTryout/:id',verifyLogger,adaptRoute(makeFindByScheduledTryoutRequestController()))
 
 
 }
