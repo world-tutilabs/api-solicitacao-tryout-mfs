@@ -1,5 +1,5 @@
 import { ISolicitationTryoutDTO } from "../../../models/ISolicitationTryoutDTO";
 
 export interface IListTryout {
-  list (): Promise<ISolicitationTryoutDTO[]>
+  list (limit?: number, offset?: number, status?: number): Promise<ISolicitationTryoutDTO[]>
 }

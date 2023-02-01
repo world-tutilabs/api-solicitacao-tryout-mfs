@@ -4,10 +4,12 @@ fails:    ❌
 > ## Caso de sucesso
 1. ✅ Recebe uma requisição do tipo **POST** na rota **/api/signup**
 2. ❌ Valida se a requisição foi feita por um **Eng_analista**
-3. ✅ Valida dados obrigatórios **Code_sap**,**product_description**,**client**,**date**,**reason**,**status** e **InjectionProcess**
-4. ✅ **Cria** uma solicitação de tryout com os dados fornecidos
-5. ❌ Retorna **204**, sem dados
+3. ✅ Valida dados obrigatórios **Code_sap**,**product_description**,**client**,**date**,**reason**,**status**, **Homolagation** e **InjectionProcess**
+4. ✅ **Cria** uma solicitação de tryout com os dados fornecidos e vincula ao mesmo um status de homolagação: Revisão
+5. ✅ Retorna **200**, com os dados
 
+> ## Integração com Sistema Gerenciamento de usuarios
+1. ❌ Recebe uma requisição do tipo **POST** na rota **/api/signup**
 > ## Exceções
 1. ❌ Retorna erro **404** se a API não existir
 2. ❌ Retorna erro **403** se o usuário não for admin

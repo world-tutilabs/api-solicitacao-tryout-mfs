@@ -1,3 +1,4 @@
+import { IHomologateTryoutDTO } from "./IHomologateTryoutDTO"
 
 interface ILabor {
     id: string
@@ -19,21 +20,10 @@ interface ILabor {
   
   interface IFeedstock {
     id: string
-    code: string
+    kg: number
     description: string
     id_injection_process?: string
-    
   }
-
-  interface IHomolgation { 
-    id: string,
-    fk_solicitation: string,
-    created_user: Object,
-    created_at: Date 
-    homologation_user: Object
-    homologation_at: Date
-  }
-
 
 export interface IInjectioinProcessDTO { 
   
@@ -44,7 +34,7 @@ export interface IInjectioinProcessDTO {
     feedstock?: IFeedstock;
     labor?: ILabor
     mold?: IMold
-    // machine?: IMachine
+    machine?: IMachine
 }
 
 export interface ISolicitationTryoutDTO { 
@@ -55,6 +45,6 @@ export interface ISolicitationTryoutDTO {
     client: string;
     programmed_date: Date;
     reason: string;
-    // homologation?: IHomolgation,
-    injectionProcess?: IInjectioinProcessDTO,
+    homologation?: IHomologateTryoutDTO,
+    injectionProcess?: IInjectioinProcessDTO
 }
