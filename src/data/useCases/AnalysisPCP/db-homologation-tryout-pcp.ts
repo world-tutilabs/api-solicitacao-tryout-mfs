@@ -56,7 +56,7 @@ var template = Handlebars.compile(source);
         },
         from: {
             name: 'MFS - Molding File System',
-            email: 'portariatutiplast@gmail.com',
+            email: 'tutilabs@tutiplast.com.br',
         },
         subject: `Solicitação de Tryout ${dataHomologate.solicitation.number_tryout} - ${dataHomologate.status.description} `,
         body: template({  
@@ -66,7 +66,7 @@ var template = Handlebars.compile(source);
                       autor: homologate.nome_completo || 'N/A',
                       data: dataHomologate.homologation_at || 'N/A',
                       status: dataHomologate.status.description || 'N/A',
-                      motivo : dataHomologate.comment  || 'N/A',
+                      motivo :  `${dataHomologate.comment} - acesse o sitema para homologar`  || 'N/A',
                       }),
         attachments  
         });

@@ -5,7 +5,7 @@ import { HomologationTryoutPCPController } from "../../../presentation/controlle
 import { Controller } from "../../../presentation/protocols";
 
 export const makeHomologateTryoutController = (): Controller => {
-     const mailtrapMailProvider = new MailtrapMailProvider();
+     const mailtrapMailProvider = new MailtrapMailProvider(); 
      const analysisPCPMysqlRepository = new AnalysisPCPMysqlRepository();
      const dbHomologationTryoutPCP = new DbHomologationTryoutPCP(mailtrapMailProvider, analysisPCPMysqlRepository,analysisPCPMysqlRepository);
      const homologationTryoutPCPController = new HomologationTryoutPCPController(dbHomologationTryoutPCP);
