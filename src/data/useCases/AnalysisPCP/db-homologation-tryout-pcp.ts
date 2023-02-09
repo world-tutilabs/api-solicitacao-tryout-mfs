@@ -49,8 +49,8 @@ var template = Handlebars.compile(source);
 
     const mailList = [
       "eng_tec@tutiplast.com",
-      "dornilson.borges@tutiplast.com.br",
-      "auzimar@tutiplast.com.br"
+     // "dornilson.borges@tutiplast.com.br",
+    //  "auzimar@tutiplast.com.br"
   ]
     
     await this.mailProvider.sendMail({
