@@ -10,7 +10,7 @@ export interface IAddress {
 }
 
 export interface IMessage { 
- to: IAddress;
+ to: string[];
  from: IAddress;
  subject: string
  body: string;

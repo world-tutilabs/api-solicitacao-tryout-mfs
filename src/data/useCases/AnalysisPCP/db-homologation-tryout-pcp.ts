@@ -47,13 +47,14 @@ var template = Handlebars.compile(source);
 
     const homologate: any = Object(dataHomologate.homologation_user);
 
+    const mailList = [
+      "eng_tec@tutiplast.com",
+     // "dornilson.borges@tutiplast.com.br",
+    //  "auzimar@tutiplast.com.br"
+  ]
     
     await this.mailProvider.sendMail({
-        to:{
-            name: 'Luan Albuquerque',
-            email: 'luan.santos6605@gmail.com',
-            // email: `${homologate.email}`,
-        },
+        to: mailList,
         from: {
             name: 'MFS - Molding File System',
             email: 'tutilabs@tutiplast.com.br',

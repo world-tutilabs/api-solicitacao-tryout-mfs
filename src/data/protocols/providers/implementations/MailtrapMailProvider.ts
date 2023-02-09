@@ -20,11 +20,9 @@ export class MailtrapMailProvider implements IMailProvider{
    }
 
     async sendMail(message: IMessage): Promise<void> {
+        
         this.transporter.sendMail({
-            to:{
-                name: message.to.name,
-                address: message.to.email,
-            },
+            to: message.to,
             from: {
                 name: message.from.name,
                 address: message.from.email,
