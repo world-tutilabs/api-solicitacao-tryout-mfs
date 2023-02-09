@@ -72,7 +72,7 @@ try {
 
   // const homologate: any = Object(dataHomologate.homologation_user);
   const mailList = [ 
-    "eng_tec@tutiplast.com",
+   // "eng_tec@tutiplast.com",
     "dornilson.borges@tutiplast.com.br",
     "auzimar@tutiplast.com.br"
 ]
