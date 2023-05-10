@@ -1,12 +1,19 @@
-import { AddTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository';
-import { IListByStatusTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository copy';
-import { IListTryoutRepository } from '../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository';
-import { ISolicitationTryoutDTO } from '../../../../domain/models/ISolicitationTryoutDTO';
-import { AddTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout';
-import { UpdateTryoutModel } from '../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout';
-import { PrismaHelper } from '../helpers/prisma-helper';
+import { AddTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository";
+import { IFindByIdTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/find-by-id-tryout-repository";
+import { IListByStatusTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository copy";
+import { IListTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository";
+import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
+import { AddTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout";
+import { UpdateTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout";
+import { PrismaHelper } from "../helpers/prisma-helper";
 
-export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRepository, IListByStatusTryoutRepository {
+export class TryoutMysqlRepository
+  implements
+    AddTryoutRepository,
+    IListTryoutRepository,
+    IListByStatusTryoutRepository,
+    IFindByIdTryoutRepository
+{
   async add(tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> {
     const result = await PrismaHelper.prisma.solicitationTryout.create({
       data: {
@@ -20,13 +27,13 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             created_user: {
               nome: tryoutData.user.nome_completo.trim(),
               matricula: tryoutData.user.matricula.trim(),
-              role: tryoutData.user.nivel_de_acesso['descricao'].trim(),
+              role: tryoutData.user.nivel_de_acesso["descricao"].trim(),
               date: new Date().toDateString(),
-              email: tryoutData.user.email.trim()
+              email: tryoutData.user.email.trim(),
             },
             created_at: new Date(),
-            fk_homologation_status: 3
-          }
+            fk_homologation_status: 3,
+          },
         },
         injectionProcess: {
           create: {
@@ -35,54 +42,59 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             labor: {
               create: {
                 description: tryoutData.InjectionProcess.labor.description,
-                amount: tryoutData.InjectionProcess.labor.amount
-              }
+                amount: tryoutData.InjectionProcess.labor.amount,
+              },
             },
             mold: {
               create: {
                 desc_mold: tryoutData.InjectionProcess.mold.mold,
-                number_cavity: tryoutData.InjectionProcess.mold.number_cavity
-              }
+                number_cavity: tryoutData.InjectionProcess.mold.number_cavity,
+              },
             },
             feedstock: {
               create: {
                 kg: tryoutData.InjectionProcess.feedstocks.kg,
-                description: tryoutData.InjectionProcess.feedstocks.description
-              }
+                description: tryoutData.InjectionProcess.feedstocks.description,
+              },
             },
             machine: {
               create: {
-                model: tryoutData.InjectionProcess.machine.model
-              }
-            }    
-          }
-        }
-      }
-    })
-    const FindAllTryout = await PrismaHelper.prisma.solicitationTryout.findMany({
-      where: {
-        id: result.id
+                model: tryoutData.InjectionProcess.machine.model,
+              },
+            },
+          },
+        },
       },
-      include: {
-        injectionProcess: {
-          include: {
-            feedstock: true,
-            labor: true,
-            mold: true,
-            machine: true
-          }
-        }
+    });
+    const FindAllTryout = await PrismaHelper.prisma.solicitationTryout.findMany(
+      {
+        where: {
+          id: result.id,
+        },
+        include: {
+          injectionProcess: {
+            include: {
+              feedstock: true,
+              labor: true,
+              mold: true,
+              machine: true,
+            },
+          },
+        },
       }
-    })
+    );
 
-    const mapInjectionProcess = await PrismaHelper.mapInjectionProcess(FindAllTryout)
-    return mapInjectionProcess
+    const mapInjectionProcess = await PrismaHelper.mapInjectionProcess(
+      FindAllTryout
+    );
+    return mapInjectionProcess;
   }
 
-
-
-  async list(limit?: number, offset?: number, status?: number): Promise<ISolicitationTryoutDTO[]> {
-  
+  async list(
+    limit?: number,
+    offset?: number,
+    status?: number
+  ): Promise<ISolicitationTryoutDTO[]> {
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
@@ -104,13 +116,12 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             status: {
               select: {
                 id: true,
-                description: true
-              }
-            }
-          }
+                description: true,
+              },
+            },
+          },
         },
         injectionProcess: {
-
           select: {
             id: true,
             id_tryout: true,
@@ -121,8 +132,8 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
               select: {
                 id: true,
                 description: true,
-                kg: true
-              }
+                kg: true,
+              },
             },
 
             labor: {
@@ -130,7 +141,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                 id: true,
                 description: true,
                 amount: true,
-              }
+              },
             },
 
             mold: {
@@ -138,15 +149,15 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                 id: true,
                 number_cavity: true,
                 desc_mold: true,
-              }
+              },
             },
             machine: {
               select: {
                 id: true,
-                model: true
-              }
-            }
-          }
+                model: true,
+              },
+            },
+          },
         },
       },
 
@@ -155,38 +166,40 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
           {
             homologation: {
               fk_homologation_status: 1,
-            }
+            },
           },
           {
             homologation: {
               fk_homologation_status: 2,
-            }
+            },
           },
           {
             homologation: {
               fk_homologation_status: 3,
-            }
+            },
           },
           {
             homologation: {
               fk_homologation_status: 5,
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
-      orderBy:{
-        number_tryout: 'desc'
+      orderBy: {
+        number_tryout: "desc",
       },
-      take:Number(limit),
-      skip: Number(offset)
-    })
+      take: Number(limit),
+      skip: Number(offset),
+    });
 
     return result;
-
   }
 
-  async listByStatus(limit?: number, offset?: number, status?: number): Promise<{all: number, list: ISolicitationTryoutDTO[]}> {
-
+  async listByStatus(
+    limit?: number,
+    offset?: number,
+    status?: number
+  ): Promise<{ all: number; list: ISolicitationTryoutDTO[] }> {
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
@@ -208,13 +221,12 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             status: {
               select: {
                 id: true,
-                description: true
-              }
-            }
-          }
+                description: true,
+              },
+            },
+          },
         },
         injectionProcess: {
-
           select: {
             id: true,
             id_tryout: true,
@@ -225,8 +237,8 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
               select: {
                 id: true,
                 description: true,
-                kg: true
-              }
+                kg: true,
+              },
             },
 
             labor: {
@@ -234,7 +246,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                 id: true,
                 description: true,
                 amount: true,
-              }
+              },
             },
 
             mold: {
@@ -242,47 +254,45 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
                 id: true,
                 number_cavity: true,
                 desc_mold: true,
-              }
+              },
             },
             machine: {
               select: {
                 id: true,
-                model: true
-              }
-            }
-          }
+                model: true,
+              },
+            },
+          },
         },
       },
 
       where: {
-        homologation:{
-          fk_homologation_status: Number(status)
-        }
+        homologation: {
+          fk_homologation_status: Number(status),
+        },
       },
-      orderBy:{
-        number_tryout: 'desc'
+      orderBy: {
+        number_tryout: "desc",
       },
-      take:Number(limit),
-      skip: Number(offset)
-    })
+      take: Number(limit),
+      skip: Number(offset),
+    });
 
     const all = await PrismaHelper.prisma.solicitationTryout.count({
-      where:{
-        homologation:{
-          fk_homologation_status: Number(status)
-        }
-      }
-    })
+      where: {
+        homologation: {
+          fk_homologation_status: Number(status),
+        },
+      },
+    });
 
-
-      return {all, list: result};
-
+    return { all, list: result };
   }
 
   async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
     const result = await PrismaHelper.prisma.solicitationTryout.update({
       where: {
-        id: tryoutData.id
+        id: tryoutData.id,
       },
       data: {
         code_sap: tryoutData.code_sap,
@@ -293,7 +303,7 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
         homologation: {
           update: {
             fk_homologation_status: 3,
-          }
+          },
         },
         injectionProcess: {
           update: {
@@ -302,40 +312,38 @@ export class TryoutMysqlRepository implements AddTryoutRepository, IListTryoutRe
             labor: {
               update: {
                 amount: tryoutData.InjectionProcess.labor.amount,
-                description: tryoutData.InjectionProcess.labor.description
-              }
+                description: tryoutData.InjectionProcess.labor.description,
+              },
             },
             mold: {
               update: {
                 number_cavity: tryoutData.InjectionProcess.mold.number_cavity,
-                desc_mold: tryoutData.InjectionProcess.mold.mold
-              }
-
+                desc_mold: tryoutData.InjectionProcess.mold.mold,
+              },
             },
             feedstock: {
               update: {
                 kg: tryoutData.InjectionProcess.feedstocks.kg,
-                description: tryoutData.InjectionProcess.feedstocks.description
-              }
+                description: tryoutData.InjectionProcess.feedstocks.description,
+              },
             },
             machine: {
               update: {
-                model: tryoutData.InjectionProcess.machine.model
-              }
-            }
-          }
-        }
-      }
-
-    })
-    return result
+                model: tryoutData.InjectionProcess.machine.model,
+              },
+            },
+          },
+        },
+      },
+    });
+    return result;
   }
-  async findByIdSolicitationTryout(id: string): Promise<ISolicitationTryoutDTO> {
+  async find(id: string): Promise<ISolicitationTryoutDTO> {
     const result = await PrismaHelper.prisma.solicitationTryout.findUnique({
       where: {
-        id
-      }
-    })
-    return result
+        id,
+      },
+    });
+    return result;
   }
-} 
+}
