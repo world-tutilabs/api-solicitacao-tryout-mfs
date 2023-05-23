@@ -122,7 +122,7 @@ export class ReportTryoutMysqlRepository
         },
         solicitation: {
           programmed_date: {
-            gte: new Date(dayjs().format("YYYY-MM-DD")),
+<!--             gte: new Date(dayjs().format("YYYY-MM-DD")), -->
           },
         },
       },
