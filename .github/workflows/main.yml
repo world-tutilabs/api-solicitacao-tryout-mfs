@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: ". , !node_modules"
-          target: "~/tutilabs/projetos-teste/solicitacao_tryout"
+          target: "~/tutilabs/projetos-teste/solicitacao_tryout" 
           
       - name : Update API
         uses: appleboy/ssh-action@master
