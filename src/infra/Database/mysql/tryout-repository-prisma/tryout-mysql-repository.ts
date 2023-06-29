@@ -6,6 +6,7 @@ import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationT
 import { AddTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout";
 import { UpdateTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout";
 import { PrismaHelper } from "../helpers/prisma-helper";
+import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
 
 export class TryoutMysqlRepository
   implements
@@ -195,6 +196,36 @@ export class TryoutMysqlRepository
     return result;
   }
 
+  async countQuantity():Promise<number>{
+    const quantity = await PrismaHelper.prisma.solicitationTryout.count({
+      where:{
+        OR: [
+          {
+            homologation: {
+              fk_homologation_status: 1,
+            },
+          },
+          {
+            homologation: {
+              fk_homologation_status: 2,
+            },
+          },
+          {
+            homologation: {
+              fk_homologation_status: 3,
+            },
+          },
+          {
+            homologation: {
+              fk_homologation_status: 5,
+            },
+          },
+        ],
+      }
+    })
+    return quantity
+  }
+
   async listByStatus(
     limit?: number,
     offset?: number,
@@ -338,7 +369,7 @@ export class TryoutMysqlRepository
     });
     return result;
   }
-  async find(id: string): Promise<ISolicitationTryoutDTO> {
+  async find(id: string): Promise<IHomologateTryoutDTO> {
     const result = await PrismaHelper.prisma.homologation.findUnique({
       include: {
         solicitation: {
@@ -353,28 +384,9 @@ export class TryoutMysqlRepository
         },
       },
       where: {
-        id,
+        fk_solicitation: id,
       },
     });
-    const newFeedstock =
-      result.solicitation.injectionProcess.feedstock.description.split("-");
-    const mergeObjectFeedstock = Object.assign(
-      {},
-      result.solicitation.injectionProcess.feedstock,
-      {
-        code: newFeedstock[0],
-        description: newFeedstock[1],
-      }
-    );
-    const mergeObjectInjectionProccess = Object.assign(
-      {},
-      result.solicitation.injectionProcess,
-      { feedstock: mergeObjectFeedstock }
-    );
-    const ObjectFinaly = Object.assign({}, result.solicitation, {
-      injectionProcess: mergeObjectInjectionProccess,
-    });
-
-    return ObjectFinaly;
+    return result;
   }
 }
