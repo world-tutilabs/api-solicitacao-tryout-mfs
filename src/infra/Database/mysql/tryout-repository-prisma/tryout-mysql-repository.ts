@@ -189,8 +189,8 @@ export class TryoutMysqlRepository
       orderBy: {
         number_tryout: "desc",
       },
-      take: Number(limit),
-      skip: Number(offset),
+      take: limit ? Number(limit) : undefined,
+      skip: offset ? Number(offset) : undefined,
     });
 
     return result;
