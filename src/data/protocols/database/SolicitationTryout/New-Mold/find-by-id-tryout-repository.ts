@@ -1,5 +1,5 @@
-import { ISolicitationTryoutDTO } from "../../../../../domain/models/ISolicitationTryoutDTO";
+import { IHomologateTryoutDTO } from "../../../../../domain/models/IHomologateTryoutDTO";
 
 export interface IFindByIdTryoutRepository {
-  find(id: string): Promise<ISolicitationTryoutDTO>;
+  find(id: string): Promise<IHomologateTryoutDTO>;
 }
