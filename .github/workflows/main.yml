@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push: 
+    branches: [ main ]
+  
+  workflow_dispatch: 
+  
+jobs:
+  deploy-teste:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with: 
+          node-version: 16.x
+          
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Build
+        run: npm run build
+        
+      - uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: ". , !node_modules"
+          target: "~/tutilabs/projetos-teste/solicitacao_tryout/api-solicitacao-tryout-back-end" 
+          
+      - name : Update API
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: 
+            cd ~/tutilabs/projetos-teste/solicitacao_tryout/api-solicitacao-tryout-back-end 
