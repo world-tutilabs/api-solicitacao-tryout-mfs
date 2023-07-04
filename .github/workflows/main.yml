@@ -42,4 +42,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: 
-            cd ~/tutilabs/projetos-teste/solicitacao_tryout/api-solicitacao-tryout-back-end 
+            cd ~/tutilabs/projetos-teste/solicitacao_tryout/api-solicitacao-tryout-back-end && docker-compose up -d
