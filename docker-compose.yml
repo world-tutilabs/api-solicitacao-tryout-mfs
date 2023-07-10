@@ -29,7 +29,7 @@ services:
       - ./package.json:/usr/src/back-end-solicitation-tryout/package.json
       - ./prisma:/usr/src/back-end-solicitation-tryout/prisma
     ports:
-      - "5001:3000"
+      - "5000:3000"
     networks:
       - back-end-tryout
 
