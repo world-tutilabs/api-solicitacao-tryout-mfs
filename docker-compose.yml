@@ -33,22 +33,22 @@ services:
     networks:
       - back-end-tryout
 
-  # front:
-  #   depends_on:
-  #     - api
-  #   container_name: front-end-solicitation-tryout-container
-  #   image: node:16
-  #   working_dir: /usr/src/front-end-solicitation-tryout
-  #   restart: always
-  #   command: bash -c "yarn --only=prod && yarn build && yarn start"
-  #   env_file:
-  #     - ../front-end/.env
-  #   volumes:
-  #     - ../front-end:/usr/src/front-end-solicitation-tryout/
-  #   ports:
-  #     - "8500:8500"
-  #   networks:
-  #     - back-end-tryout
+  front:
+     depends_on:
+       - api
+     container_name: front-end-solicitation-tryout-container
+     image: node:16
+     working_dir: /usr/src/front-end-solicitation-tryout
+     restart: always
+     command: bash -c "yarn --only=prod && yarn build && yarn start"
+     env_file:
+       - ../front-end/.env
+     volumes:
+       - ../front-end:/usr/src/front-end-solicitation-tryout/
+     ports:
+       - "8500:8500"
+     networks:
+       - back-end-tryout
 
 networks:
   back-end-tryout:
