@@ -196,36 +196,6 @@ export class TryoutMysqlRepository
     return result;
   }
 
-  async countQuantity():Promise<number>{
-    const quantity = await PrismaHelper.prisma.solicitationTryout.count({
-      where:{
-        OR: [
-          {
-            homologation: {
-              fk_homologation_status: 1,
-            },
-          },
-          {
-            homologation: {
-              fk_homologation_status: 2,
-            },
-          },
-          {
-            homologation: {
-              fk_homologation_status: 3,
-            },
-          },
-          {
-            homologation: {
-              fk_homologation_status: 5,
-            },
-          },
-        ],
-      }
-    })
-    return quantity
-  }
-
   async listByStatus(
     limit?: number,
     offset?: number,

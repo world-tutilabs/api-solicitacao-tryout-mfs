@@ -8,11 +8,10 @@ export class DbListTryout implements IListTryout{
     
     constructor(private readonly listTryoutRepository: IListTryoutRepository){}
 
-    async list(limit?: number, offset?: number, status?: number): Promise<{ quantity: number; tryout: ISolicitationTryoutDTO[]}> {
-        const quantity = await this.listTryoutRepository.countQuantity()
+    async list(limit?: number, offset?: number, status?: number): Promise<ISolicitationTryoutDTO[]> {
         const tryout = await this.listTryoutRepository.list(limit,offset,status)
 
-        return {quantity, tryout}
+        return tryout
     }
 
     
