@@ -1,7 +1,7 @@
-version: '3'
+version: '3.9'
 services:
-  mysql-solicitation-tryout:
-    container_name: mysql-container-solicitation-tryout
+  mysql-solicitacao-tryout-mfs:
+    container_name: mysql-solicitacao-tryout-mfs
     image: mysql:8
     restart: always
     volumes:
@@ -14,42 +14,21 @@ services:
       MYSQL_PASSWORD: 00bfc8c729f5d4d529a412b12c58ddd2
     networks:
       - back-end-tryout
-  api:
+  api-solicitacao-tryout-mfs:
     depends_on:
-      - mysql-solicitation-tryout
-    container_name: back-end-solicitation-tryout-container
-    image: node:16
-    working_dir: /usr/src/back-end-solicitation-tryout
+      - mysql-solicitacao-tryout-mfs
+    container_name: api-solicitacao-tryout-mfs
+    build: 
+      context: ./
+      dockerfile: Dockerfile
     restart: always
-    command: bash -c "npm install --only=prod && npx prisma generate && npx prisma db push && npm run seed && npm run debug"
+    command: bash -c "yarn build && yarn prisma generate && yarn prisma db push && yarn seed && yarn debug"
     env_file:
       - .env
-    volumes:
-      - ./dist/:/usr/src/back-end-solicitation-tryout/dist
-      - ./package.json:/usr/src/back-end-solicitation-tryout/package.json
-      - ./prisma:/usr/src/back-end-solicitation-tryout/prisma
     ports:
       - "5000:3000"
     networks:
       - back-end-tryout
-
-  front:
-     depends_on:
-       - api
-     container_name: front-end-solicitation-tryout-container
-     image: node:16
-     working_dir: /usr/src/front-end-solicitation-tryout
-     restart: always
-     command: bash -c "yarn --only=prod && yarn build && yarn start"
-     env_file:
-       - ../front-end/.env
-     volumes:
-       - ../front-end:/usr/src/front-end-solicitation-tryout/
-     ports:
-       - "8500:8500"
-     networks:
-       - back-end-tryout
-
 networks:
   back-end-tryout:
       name: back-end-solicitation-tryout 
