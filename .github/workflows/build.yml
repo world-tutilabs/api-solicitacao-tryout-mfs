@@ -1,24 +1,24 @@
 name: CI
-
 on:
-  push:
-    branches: [main]
+  pull_request:
+    branches:
+      - develop
 jobs:
   checkout-application:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Deploy to server
-        uses: appleboy/scp-action@master
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          host: 185.209.179.253
-          username: app
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."
-          target: "projetos/Mfs/solicitacao-tryout/back"
-          script: "cd /home/app/projetos/Mfs/solicitacao-tryout/back && docker-compose down && docker-compose up -d"
-      # - name: Update API
+          node-version: 16
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
       #   uses: easingthemes/ssh-deploy@main
       #   env:
       #     host: ${{ secrets.SSH_HOST }}
