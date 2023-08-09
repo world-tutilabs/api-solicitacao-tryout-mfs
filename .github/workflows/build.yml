@@ -19,7 +19,6 @@ jobs:
       - name: Build application
         run: npm run build
 
-      #   uses: easingthemes/ssh-deploy@main
       #   env:
       #     host: ${{ secrets.SSH_HOST }}
       #     username: ${{ secrets.SSH_USER }}
