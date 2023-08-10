@@ -1,7 +1,7 @@
-name: CI
+name: CI-deployment-solicitacao-tryout
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
