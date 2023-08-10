@@ -1,7 +1,7 @@
-name: CI
+name: CI-deployment-solicitacao-tryout
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 jobs:
@@ -18,12 +18,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
           target: "projetos/Mfs/solicitacao-tryout/back"
-          script: "cd /home/app/projetos/Mfs/solicitacao-tryout/back && docker-compose down && docker-compose up -d"
-      # - name: Update API
-      #   uses: easingthemes/ssh-deploy@main
-      #   env:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USER }}
-      #     key: ${{ secrets.SSH_KEY }}
-      #     port: ${{ secrets.SSH_PORT }}
-      #     script: cd /home/app/projetos/Mfs/solicitacao-tryout/back && docker-compose down && docker-compose up -d
+          script: "cd /home/app/projetos/Mfs/solicitacao-tryout && docker-compose down && docker-compose up -d --build"

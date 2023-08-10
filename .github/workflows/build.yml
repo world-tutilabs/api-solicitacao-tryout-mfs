@@ -1,4 +1,4 @@
-name: CI
+name: CI-build-api-solicitacao-tryout-mfs
 on:
   pull_request:
     branches:
@@ -18,10 +18,3 @@ jobs:
 
       - name: Build application
         run: npm run build
-
-      #   env:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USER }}
-      #     key: ${{ secrets.SSH_KEY }}
-      #     port: ${{ secrets.SSH_PORT }}
-      #     script: cd /home/app/projetos/Mfs/solicitacao-tryout/back && docker-compose down && docker-compose up -d
