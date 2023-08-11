@@ -25,6 +25,7 @@ export class ReportTryoutMysqlRepository
             desc_product: true,
             client: true,
             programmed_date: true,
+            code: true,
             reason: true,
             injectionProcess: {
               select: {
@@ -97,6 +98,7 @@ export class ReportTryoutMysqlRepository
             desc_product: true,
             client: true,
             programmed_date: true,
+            code: true,
             reason: true,
             injectionProcess: {
               select: {
@@ -122,7 +124,7 @@ export class ReportTryoutMysqlRepository
         },
         solicitation: {
           programmed_date: {
-//            gte: new Date(dayjs().format("YYYY-MM-DD")), 
+            //            gte: new Date(dayjs().format("YYYY-MM-DD")),
           },
         },
       },

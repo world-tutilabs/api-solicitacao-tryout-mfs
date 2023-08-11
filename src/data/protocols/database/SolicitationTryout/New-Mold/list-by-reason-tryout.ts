@@ -1,9 +1,9 @@
 import { ISolicitationTryoutDTO } from "../../../../../domain/models/ISolicitationTryoutDTO";
 
-export interface IListTryoutRepository {
-  list(
+export interface IListByReasonTryoutRepository {
+  listByReason(
     limit?: number,
     offset?: number,
     status?: number
-  ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }>;
+  ): Promise<{ all: number; list: ISolicitationTryoutDTO[] }>;
 }

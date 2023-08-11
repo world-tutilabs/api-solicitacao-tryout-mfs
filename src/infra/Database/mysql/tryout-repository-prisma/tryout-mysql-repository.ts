@@ -1,6 +1,6 @@
 import { AddTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository";
 import { IFindByIdTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/find-by-id-tryout-repository";
-import { IListByStatusTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository copy";
+import { IListByStatusTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository";
 import { IListTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository";
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { AddTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout";
@@ -22,7 +22,8 @@ export class TryoutMysqlRepository
         desc_product: tryoutData.product_description,
         client: tryoutData.client,
         programmed_date: new Date(tryoutData.date),
-        reason: tryoutData.reason,
+        code: tryoutData.code,
+        reasonId: tryoutData.reason,
         homologation: {
           create: {
             created_user: {
@@ -95,7 +96,7 @@ export class TryoutMysqlRepository
     limit?: number,
     offset?: number,
     status?: number
-  ): Promise<ISolicitationTryoutDTO[]> {
+  ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }> {
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
@@ -104,6 +105,7 @@ export class TryoutMysqlRepository
         desc_product: true,
         client: true,
         programmed_date: true,
+        code: true,
         reason: true,
         homologation: {
           select: {
@@ -163,26 +165,14 @@ export class TryoutMysqlRepository
       },
 
       where: {
-        OR: [
+        AND: [
           {
             homologation: {
-              fk_homologation_status: 1,
+              fk_homologation_status: { notIn: 4 },
             },
           },
           {
-            homologation: {
-              fk_homologation_status: 2,
-            },
-          },
-          {
-            homologation: {
-              fk_homologation_status: 3,
-            },
-          },
-          {
-            homologation: {
-              fk_homologation_status: 5,
-            },
+            reasonId: { in: [1, 2] },
           },
         ],
       },
@@ -193,7 +183,22 @@ export class TryoutMysqlRepository
       skip: offset ? Number(offset) : undefined,
     });
 
-    return result;
+    const all = await PrismaHelper.prisma.solicitationTryout.count({
+      where: {
+        AND: [
+          {
+            homologation: {
+              fk_homologation_status: { notIn: 4 },
+            },
+          },
+          {
+            reasonId: { in: [1, 2] },
+          },
+        ],
+      },
+    });
+
+    return { all, result };
   }
 
   async listByStatus(
@@ -209,6 +214,116 @@ export class TryoutMysqlRepository
         desc_product: true,
         client: true,
         programmed_date: true,
+        code: true,
+        reason: true,
+        homologation: {
+          select: {
+            id: true,
+            fk_solicitation: true,
+            created_user: true,
+            created_at: true,
+            homologation_user: true,
+            homologation_at: true,
+            comment: true,
+            status: {
+              select: {
+                id: true,
+                description: true,
+              },
+            },
+          },
+        },
+        injectionProcess: {
+          select: {
+            id: true,
+            id_tryout: true,
+            proc_technician: true,
+            quantity: true,
+
+            feedstock: {
+              select: {
+                id: true,
+                description: true,
+                kg: true,
+              },
+            },
+
+            labor: {
+              select: {
+                id: true,
+                description: true,
+                amount: true,
+              },
+            },
+
+            mold: {
+              select: {
+                id: true,
+                number_cavity: true,
+                desc_mold: true,
+              },
+            },
+            machine: {
+              select: {
+                id: true,
+                model: true,
+              },
+            },
+          },
+        },
+      },
+      where: {
+        AND: [
+          {
+            homologation: {
+              fk_homologation_status: Number(status),
+            },
+          },
+          {
+            reasonId: { in: [1, 2] },
+          },
+        ],
+      },
+      orderBy: {
+        number_tryout: "desc",
+      },
+      take: limit ? Number(limit) : undefined,
+      skip: offset ? Number(offset) : undefined,
+    });
+
+    const all = await PrismaHelper.prisma.solicitationTryout.count({
+      where: {
+        AND: [
+          {
+            homologation: {
+              fk_homologation_status: Number(status),
+            },
+          },
+
+          {
+            reasonId: { in: [1, 2] },
+          },
+        ],
+      },
+    });
+
+    return { all, list: result };
+  }
+
+  async listByReason(
+    limit?: number,
+    offset?: number,
+    status?: number
+  ): Promise<{ all: number; list: ISolicitationTryoutDTO[] }> {
+    const result = await PrismaHelper.prisma.solicitationTryout.findMany({
+      select: {
+        id: true,
+        number_tryout: true,
+        code_sap: true,
+        desc_product: true,
+        client: true,
+        programmed_date: true,
+        code: true,
         reason: true,
         homologation: {
           select: {
@@ -268,29 +383,47 @@ export class TryoutMysqlRepository
       },
 
       where: {
-        homologation: {
-          fk_homologation_status: Number(status),
-        },
+        AND: [
+          {
+            reasonId: { in: [3, 4] },
+          },
+          {
+            homologation: {
+              fk_homologation_status: {
+                notIn: 4,
+              },
+            },
+          },
+        ],
       },
       orderBy: {
         number_tryout: "desc",
       },
-      take: limit ?  Number(limit) : undefined,
+      take: limit ? Number(limit) : undefined,
       skip: offset ? Number(offset) : undefined,
     });
 
     const all = await PrismaHelper.prisma.solicitationTryout.count({
       where: {
-        homologation: {
-          fk_homologation_status: Number(status),
-        },
+        AND: [
+          {
+            reasonId: { in: [3, 4] },
+          },
+          {
+            homologation: {
+              fk_homologation_status: {
+                notIn: 4,
+              },
+            },
+          },
+        ],
       },
     });
 
     return { all, list: result };
   }
 
-  async update(tryoutData: UpdateTryoutModel): Promise<ISolicitationTryoutDTO> {
+  async update(tryoutData: UpdateTryoutModel): Promise<any> {
     const result = await PrismaHelper.prisma.solicitationTryout.update({
       where: {
         id: tryoutData.id,
@@ -299,7 +432,8 @@ export class TryoutMysqlRepository
         code_sap: tryoutData.code_sap,
         desc_product: tryoutData.product_description,
         client: tryoutData.client,
-        reason: tryoutData.reason,
+        code: tryoutData.code,
+        reasonId: tryoutData.reason,
         programmed_date: new Date(tryoutData.date),
         homologation: {
           update: {
@@ -339,7 +473,7 @@ export class TryoutMysqlRepository
     });
     return result;
   }
-  async find(id: string): Promise<IHomologateTryoutDTO> {
+  async find(id: string): Promise<any> {
     const result = await PrismaHelper.prisma.homologation.findUnique({
       include: {
         solicitation: {

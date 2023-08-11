@@ -6,24 +6,39 @@ import { makeSignUpTryoutController } from "../factories/solicitation-tryout-fac
 import { makeUpdateTryoutController } from "../factories/solicitation-tryout-factory/update-tryout-factory";
 import { verifyEngLogger, verifyLogger, verifyPCPlogger } from "../middlewares";
 import { makeFindByIdTryoutController } from "../factories/solicitation-tryout-factory/find-by-id-tryout-factory";
+import { makeListByReasonTryoutController } from "../factories/solicitation-tryout-factory/list-by-reason-factory";
 
 export default (router: Router): void => {
-  router.get("/list", verifyLogger, adaptRoute(makeListTryoutController()));
+  // GET routes
+  router.get("/:id", verifyLogger, adaptRoute(makeFindByIdTryoutController()));
   router.get(
-    "/listByStatus",
+    "/solicitation/historic",
+    verifyLogger,
+    adaptRoute(makeListTryoutController())
+  );
+  router.get(
+    "/modification/historic",
+    verifyLogger,
+    adaptRoute(makeListByReasonTryoutController())
+  );
+  router.get(
+    "/solicitation/listByStatus",
     verifyLogger,
     adaptRoute(makeListByStatusTryoutController())
   );
+
+  // POST routes
   router.post(
     "/signup",
     verifyLogger,
     verifyEngLogger,
     adaptRoute(makeSignUpTryoutController())
   );
+
+  // PUT routes
   router.put(
     "/update/:id",
     verifyLogger,
     adaptRoute(makeUpdateTryoutController())
   );
-  router.get("/:id", verifyLogger, adaptRoute(makeFindByIdTryoutController()));
 };
