@@ -191,9 +191,6 @@ export class TryoutMysqlRepository
               fk_homologation_status: { notIn: 4 },
             },
           },
-          {
-            reasonId: { in: [1, 2] },
-          },
         ],
       },
     });
@@ -279,9 +276,6 @@ export class TryoutMysqlRepository
               fk_homologation_status: Number(status),
             },
           },
-          {
-            reasonId: { in: [1, 2] },
-          },
         ],
       },
       orderBy: {
@@ -298,10 +292,6 @@ export class TryoutMysqlRepository
             homologation: {
               fk_homologation_status: Number(status),
             },
-          },
-
-          {
-            reasonId: { in: [1, 2] },
           },
         ],
       },
