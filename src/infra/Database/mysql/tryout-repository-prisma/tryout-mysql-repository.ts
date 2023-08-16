@@ -165,16 +165,9 @@ export class TryoutMysqlRepository
       },
 
       where: {
-        AND: [
-          {
-            homologation: {
-              fk_homologation_status: { notIn: 4 },
-            },
-          },
-          {
-            reasonId: { in: [1, 2] },
-          },
-        ],
+        homologation: {
+          fk_homologation_status: { notIn: 4 },
+        },
       },
       orderBy: {
         number_tryout: "desc",
@@ -185,13 +178,9 @@ export class TryoutMysqlRepository
 
     const all = await PrismaHelper.prisma.solicitationTryout.count({
       where: {
-        AND: [
-          {
-            homologation: {
-              fk_homologation_status: { notIn: 4 },
-            },
-          },
-        ],
+        homologation: {
+          fk_homologation_status: { notIn: 4 },
+        },
       },
     });
 
@@ -270,13 +259,9 @@ export class TryoutMysqlRepository
         },
       },
       where: {
-        AND: [
-          {
-            homologation: {
-              fk_homologation_status: Number(status),
-            },
-          },
-        ],
+        homologation: {
+          fk_homologation_status: Number(status),
+        },
       },
       orderBy: {
         number_tryout: "desc",
@@ -287,13 +272,9 @@ export class TryoutMysqlRepository
 
     const all = await PrismaHelper.prisma.solicitationTryout.count({
       where: {
-        AND: [
-          {
-            homologation: {
-              fk_homologation_status: Number(status),
-            },
-          },
-        ],
+        homologation: {
+          fk_homologation_status: Number(status),
+        },
       },
     });
 
