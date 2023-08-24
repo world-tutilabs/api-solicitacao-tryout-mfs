@@ -1,7 +1,5 @@
 import { AddTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository";
 import { IFindByIdTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/find-by-id-tryout-repository";
-// import { IListByStatusTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository";
-import { IListTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository";
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { AddTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout";
 import { UpdateTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout";
@@ -27,10 +25,7 @@ const reasonId = {
 };
 
 export class TryoutMysqlRepository
-  implements
-    AddTryoutRepository,
-    IListTryoutRepository,
-    IFindByIdTryoutRepository
+  implements AddTryoutRepository, IFindByIdTryoutRepository
 {
   async add(tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> {
     const result = await PrismaHelper.prisma.solicitationTryout.create({
