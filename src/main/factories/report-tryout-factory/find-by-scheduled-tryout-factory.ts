@@ -1,4 +1,4 @@
-import { MailtrapMailProvider } from "../../../data/protocols/providers/implementations/MailtrapMailProvider";
+// import { MailtrapMailProvider } from "../../../data/protocols/providers/implementations/MailtrapMailProvider";
 import { DbHomologationTryoutPCP } from "../../../data/useCases/AnalysisPCP/db-homologation-tryout-pcp";
 import { DbFindByScheduledTryoutRequest } from "../../../data/useCases/ReportTryout/db-find-by-scheduled-tryout-request";
 import { DbHomologateReportTryout } from "../../../data/useCases/ReportTryout/db-homologate-report-tryout";
@@ -12,8 +12,12 @@ import { ReportTryoutHomologationController } from "../../../presentation/contro
 import { Controller } from "../../../presentation/protocols";
 
 export const makeFindByScheduledTryoutRequestController = (): Controller => {
-     const reportTryoutMysqlRepository = new ReportTryoutMysqlRepository();
-     const dbFindByScheduledTryoutRequest = new DbFindByScheduledTryoutRequest(reportTryoutMysqlRepository);
-     const index = new FindByScheduledTryoutRequestController(dbFindByScheduledTryoutRequest)
-     return index;
-}
+  const reportTryoutMysqlRepository = new ReportTryoutMysqlRepository();
+  const dbFindByScheduledTryoutRequest = new DbFindByScheduledTryoutRequest(
+    reportTryoutMysqlRepository
+  );
+  const index = new FindByScheduledTryoutRequestController(
+    dbFindByScheduledTryoutRequest
+  );
+  return index;
+};

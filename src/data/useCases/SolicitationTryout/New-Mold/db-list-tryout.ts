@@ -10,9 +10,15 @@ export class DbListTryout implements IListTryout {
   async list(
     limit?: number,
     offset?: number,
-    status?: number
+    status?: number,
+    reason?: number
   ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }> {
-    const tryout = await this.listTryoutRepository.list(limit, offset, status);
+    const tryout = await this.listTryoutRepository.list(
+      limit,
+      offset,
+      status,
+      reason
+    );
 
     return tryout;
   }

@@ -9,6 +9,8 @@ import { IHomologate } from "../../../../domain/useCases/AnalysisPCP/IHomologati
 import { AppError } from "../../../../presentation/errors/AppError";
 import { ServerError } from "../../../../presentation/errors/server-error";
 import { PrismaHelper } from "../helpers/prisma-helper";
+import { httpRRIM } from "../../../../config/config-rrim";
+import { fetchData } from "../../../../config/rrim/find-by-id";
 
 export class AnalysisPCPMysqlRepository
   implements
@@ -38,6 +40,12 @@ export class AnalysisPCPMysqlRepository
         .then(async () => {
           const homologate = await this.findByHomologateTryout(id);
 
+          return homologate;
+        })
+        .then(async (homologate) => {
+          if (status === 4) {
+            // await fetchData(homologate.solicitation.injectionProcess.mold); //TODO:
+          }
           return homologate;
         });
 
