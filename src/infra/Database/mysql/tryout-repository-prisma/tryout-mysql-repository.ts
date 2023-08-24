@@ -1,14 +1,14 @@
 import { AddTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/add-tryout-repository";
 import { IFindByIdTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/find-by-id-tryout-repository";
-import { IListByStatusTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository";
+// import { IListByStatusTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/list-tryout-repository";
 import { IListTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository";
 import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { AddTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/add-tryout";
 import { UpdateTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout";
 import { PrismaHelper } from "../helpers/prisma-helper";
-import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
-import { realpathSync } from "fs";
-import { fetchData } from "../../../../config/rrim/find-by-id";
+// import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
+// import { realpathSync } from "fs";
+// import { fetchData } from "../../../../config/rrim/find-by-id";
 
 const homologationStatusId = {
   solAprovada: 1,
