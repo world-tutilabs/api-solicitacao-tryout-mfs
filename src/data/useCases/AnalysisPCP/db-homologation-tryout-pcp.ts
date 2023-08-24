@@ -8,7 +8,7 @@ import {
 import { AppError } from "../../../presentation/errors/AppError";
 import { IFindByHomologateTryoutPCPRepository } from "../../protocols/database/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
 import { IHomologationRepositoryInRepository } from "../../protocols/database/AnalysisPCP/homologate-pcp-repository";
-import { IMailProvider } from "../../protocols/providers/IMailProvider";
+// import { IMailProvider } from "../../protocols/providers/IMailProvider";
 
 export class DbHomologationTryoutPCP implements IHomologationTryoutPCP {
   constructor(
@@ -68,28 +68,24 @@ export class DbHomologationTryoutPCP implements IHomologationTryoutPCP {
         //  "auzimar@tutiplast.com.br"
       ];
 
-      //   await this.mailProvider.sendMail({
+      // await this.mailProvider.sendMail({
       //     to: mailList,
       //     from: {
-      //       name: "MFS - Molding File System",
-      //       email: "tutilabs@tutiplast.com.br",
+      //         name: 'MFS - Molding File System',
+      //         email: 'tutilabs@tutiplast.com.br',
       //     },
       //     subject: `Solicitação de Tryout ${dataHomologate.solicitation.number_tryout} - ${dataHomologate.status.description} `,
       //     body: template({
-      //       tryout: dataHomologate.solicitation.number_tryout || "N/A",
-      //       produto: dataHomologate.solicitation.code_sap || "N/A",
-      //       molde:
-      //         dataHomologate.solicitation.injectionProcess.mold.desc_mold ||
-      //         "N/A",
-      //       autor: homologate.nome_completo || "N/A",
-      //       data: dataHomologate.homologation_at || "N/A",
-      //       status: dataHomologate.status.description || "N/A",
-      //       motivo:
-      //         `${dataHomologate.comment} - acesse o sitema para homologar` ||
-      //         "N/A",
-      //     }),
-      //     attachments,
-      //   });
+      //                   tryout : dataHomologate.solicitation.number_tryout || 'N/A',
+      //                   produto: dataHomologate.solicitation.code_sap || 'N/A',
+      //                   molde: dataHomologate.solicitation.injectionProcess.mold.desc_mold || 'N/A',
+      //                   autor: homologate.nome_completo || 'N/A',
+      //                   data: dataHomologate.homologation_at || 'N/A',
+      //                   status: dataHomologate.status.description || 'N/A',
+      //                   motivo :  `${dataHomologate.comment} - acesse o sitema para homologar`  || 'N/A',
+      //                   }),
+      //     attachments
+      //     });
     } catch (error) {
       throw new AppError("Erro ao enviar E-mail", 500);
     }

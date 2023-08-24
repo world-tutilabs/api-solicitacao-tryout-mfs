@@ -1,16 +1,10 @@
-import { prisma } from "@prisma/client";
 import { IFindByHomologateTryoutPCPRepository } from "../../../../data/protocols/database/AnalysisPCP/find-by-homologate-tryout-pcp-repository";
 import { IHomologationRepositoryInRepository } from "../../../../data/protocols/database/AnalysisPCP/homologate-pcp-repository";
 import { IListTryoutAnalysisPCRepository } from "../../../../data/protocols/database/AnalysisPCP/list-pcp-analysis-repository";
-import { IListTryoutRepository } from "../../../../data/protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository";
 import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
-import { ISolicitationTryoutDTO } from "../../../../domain/models/ISolicitationTryoutDTO";
 import { IHomologate } from "../../../../domain/useCases/AnalysisPCP/IHomologation-Tryout-PCP";
 import { AppError } from "../../../../presentation/errors/AppError";
-import { ServerError } from "../../../../presentation/errors/server-error";
 import { PrismaHelper } from "../helpers/prisma-helper";
-import { httpRRIM } from "../../../../config/config-rrim";
-import { fetchData } from "../../../../config/rrim/find-by-id";
 
 export class AnalysisPCPMysqlRepository
   implements
