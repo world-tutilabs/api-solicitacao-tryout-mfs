@@ -13,9 +13,9 @@ var fs = require("fs");
 
 export class DbAddTryout implements AddTryout {
   constructor(
-    private readonly addTryoutRepository: AddTryoutRepository,
-    private readonly mailProvider: IMailProvider
-  ) {}
+    private readonly addTryoutRepository: AddTryoutRepository
+  ) // private readonly mailProvider: IMailProvider
+  {}
 
   async add(tryout: AddTryoutModel): Promise<ISolicitationTryoutDTO> {
     const tryout_soli = await this.addTryoutRepository.add(tryout);
@@ -82,24 +82,24 @@ export class DbAddTryout implements AddTryout {
         "auzimar@tutiplast.com.br",
       ];
 
-      await this.mailProvider.sendMail({
-        to: mailList,
-        from: {
-          name: "MFS - Molding File System",
-          email: "tutilabs@tutiplast.com.br",
-        },
-        subject: `Solicitação de Tryout ${tryout_soli.number_tryout} - em Homologação`,
-        body: template({
-          tryout: tryout_soli.number_tryout || "N/A",
-          produto: tryout_soli.code_sap || "N/A",
-          molde: tryout_soli.injectionProcess.mold.desc_mold || "N/A",
-          autor: tryout_soli.injectionProcess.proc_technician || "N/A",
-          data: tryout_soli.programmed_date || "N/A",
-          status: "Em homologação" || "N/A",
-          motivo: "Nova solicitação de Tryout" || "N/A",
-        }),
-        attachments,
-      });
+      // await this.mailProvider.sendMail({
+      //   to: mailList,
+      //   from: {
+      //     name: "MFS - Molding File System",
+      //     email: "tutilabs@tutiplast.com.br",
+      //   },
+      //   subject: `Solicitação de Tryout ${tryout_soli.number_tryout} - em Homologação`,
+      //   body: template({
+      //     tryout: tryout_soli.number_tryout || "N/A",
+      //     produto: tryout_soli.code_sap || "N/A",
+      //     molde: tryout_soli.injectionProcess.mold.desc_mold || "N/A",
+      //     autor: tryout_soli.injectionProcess.proc_technician || "N/A",
+      //     data: tryout_soli.programmed_date || "N/A",
+      //     status: "Em homologação" || "N/A",
+      //     motivo: "Nova solicitação de Tryout" || "N/A",
+      //   }),
+      //   attachments,
+      // });
     } catch (error) {
       throw new AppError("Erro ao enviar E-mail", 500);
     }
