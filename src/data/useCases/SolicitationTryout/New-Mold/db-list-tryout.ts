@@ -4,15 +4,22 @@ import { IListTryout } from "../../../../domain/useCases/SolicitationTryout/New-
 import { AppError } from "../../../../presentation/errors/AppError";
 import { IListTryoutRepository } from "../../../protocols/database/SolicitationTryout/New-Mold/listByStatus-tryout-repository";
 
-export class DbListTryout implements IListTryout{
-    
-    constructor(private readonly listTryoutRepository: IListTryoutRepository){}
+export class DbListTryout implements IListTryout {
+  constructor(private readonly listTryoutRepository: IListTryoutRepository) {}
 
-    async list(limit?: number, offset?: number, status?: number): Promise<ISolicitationTryoutDTO[]> {
-        const tryout = await this.listTryoutRepository.list(limit,offset,status)
+  async list(
+    limit?: number,
+    offset?: number,
+    status?: number,
+    reason?: number
+  ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }> {
+    const tryout = await this.listTryoutRepository.list(
+      limit,
+      offset,
+      status,
+      reason
+    );
 
-        return tryout
-    }
-
-    
+    return tryout;
+  }
 }

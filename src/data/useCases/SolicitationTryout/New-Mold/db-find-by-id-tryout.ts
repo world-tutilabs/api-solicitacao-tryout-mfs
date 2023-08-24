@@ -6,12 +6,12 @@ import { IFindByIdTryoutRepository } from "../../../protocols/database/Solicitat
 export class DbFindByIdTryout implements IFindById {
   constructor(
     private readonly iFindByIdTryoutRepository: IFindByIdTryoutRepository
-  ) { }
+  ) {}
   async findById(id: string): Promise<ISolicitationTryoutDTO> {
     const result = await this.iFindByIdTryoutRepository.find(id);
 
-    if(!result){
-      throw new AppError("Solicitação não encontrada",404)
+    if (!result) {
+      throw new AppError("Solicitação não encontrada", 404);
     }
     const newFeedstock =
       result.solicitation.injectionProcess.feedstock.description.split("-");
@@ -32,6 +32,6 @@ export class DbFindByIdTryout implements IFindById {
       injectionProcess: mergeObjectInjectionProccess,
     });
 
-    return ObjectFinaly
+    return ObjectFinaly;
   }
 }

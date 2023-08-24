@@ -1,28 +1,19 @@
-
 import { IListTryout } from "../../../domain/useCases/SolicitationTryout/New-Mold/list-tryout";
 import { serverError, ok } from "../../helpers/http-helper";
 import { Controller, HttpRequest, HttpResponse } from "../../protocols";
 
-export class ListTryoutController  implements Controller {
+export class ListTryoutController implements Controller {
+  constructor(private readonly listTryout: IListTryout) {}
 
-    constructor(private readonly listTryout: IListTryout){}
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+      const { limit, offset, status, reason } = httpRequest.query;
 
-    async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-      
-        try {
-            const { limit, offset, status } = httpRequest.query
-           
-              
-           const list = await this.listTryout.list(limit, offset, status);
+      const list = await this.listTryout.list(limit, offset, status, reason);
 
-
-           return ok(list);
-
-        } catch (error) {
-
-            return serverError(error);
-
-        }
+      return ok(list);
+    } catch (error) {
+      return serverError(error);
     }
-
+  }
 }

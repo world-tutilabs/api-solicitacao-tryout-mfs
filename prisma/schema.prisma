@@ -8,8 +8,8 @@ datasource db {
 }
 
 model HomologationStatus {
-  id           Int           @id @default(autoincrement())
-  description  String        @db.VarChar(250)
+  id           Int            @id @default(autoincrement())
+  description  String         @db.VarChar(250)
   homologation Homologation[]
 
   @@map("homologation_status")
@@ -17,15 +17,15 @@ model HomologationStatus {
 
 model Homologation {
   id                     String             @id @default(uuid())
-  fk_solicitation        String             @unique        
+  fk_solicitation        String             @unique
   created_user           Json
   created_at             DateTime
   homologation_user      Json?
   homologation_at        DateTime?
   comment                String?
-  fk_homologation_status Int                
+  fk_homologation_status Int
   status                 HomologationStatus @relation(fields: [fk_homologation_status], references: [id])
-  solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
+  solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id], onDelete: Cascade)
 
   @@map("homologation")
 }
@@ -36,8 +36,10 @@ model SolicitationTryout {
   code_sap         String            @db.VarChar(250)
   desc_product     String            @db.VarChar(250)
   client           String            @db.VarChar(250)
+  reason           Reason            @relation(fields: [reasonId], references: [id])
+  reasonId         Int
+  code             String?
   programmed_date  DateTime
-  reason           String            @db.VarChar(250)
   created_at       DateTime          @default(now())
   updated_at       DateTime          @default(now())
   homologation     Homologation?
@@ -51,11 +53,12 @@ model InjectionProcess {
   id_tryout       String             @unique
   proc_technician Json
   quantity        Int
-  tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id])
+  tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id], onDelete: Cascade)
   feedstock       Feedstock?
   labor           Labor?
   mold            Mold?
   machine         Machine?
+
   @@index([id_tryout], map: "id_tryou")
   @@map("injection_process")
 }
@@ -63,25 +66,26 @@ model InjectionProcess {
 model Feedstock {
   id                   String           @id @default(uuid())
   description          String           @db.VarChar(250)
-  kg                   Float           
+  kg                   Float
   id_process_injection String           @unique
-  fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout])
+  fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout], onDelete: Cascade)
 
   @@map("feedstock")
 }
 
 model Machine {
-  id  String           @id @default(uuid())
-  model String         @db.VarChar(250)
+  id                   String           @id @default(uuid())
+  model                String           @db.VarChar(250)
   id_injection_process String           @unique
-  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout], onDelete: Cascade)
 }
+
 model Labor {
   id                   String           @id @default(uuid())
   amount               Int
   description          String           @db.VarChar(250)
   id_injection_process String           @unique
-  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout], onDelete: Cascade)
 
   @@map("labor")
 }
@@ -91,7 +95,13 @@ model Mold {
   number_cavity        Int
   desc_mold            String           @db.VarChar(250)
   id_injection_process String           @unique
-  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout], onDelete: Cascade)
 
   @@map("mold")
+}
+
+model Reason {
+  id                 Int                  @id @default(autoincrement())
+  description        String
+  SolicitationTryout SolicitationTryout[]
 }
