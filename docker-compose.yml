@@ -1,35 +1,36 @@
-version: '3.9'
+version: "3"
 services:
-  mysql-solicitacao-tryout-mfs:
-    container_name: mysql-solicitacao-tryout-mfs
+  dev-mysql-solicitation-tryout:
+    container_name: dev-mysql-container-solicitation-tryout
     image: mysql:8
     restart: always
     volumes:
       - ./db:/var/lib/mysql
     ports:
-      - "1234:3306"
+      - "7777:7777"
     environment:
-      MYSQL_ROOT_PASSWORD: 00bfc8c729f5d4d529a412b12c58ddd2
-      MYSQL_DATABASE: Tryout
-      MYSQL_PASSWORD: 00bfc8c729f5d4d529a412b12c58ddd2
-    networks:
-      - back-end-tryout
-  api-solicitacao-tryout-mfs:
-    depends_on:
-      - mysql-solicitacao-tryout-mfs
-    container_name: api-solicitacao-tryout-mfs
-    build: 
-      context: ./
-      dockerfile: Dockerfile
-    restart: always
-    command: bash -c "yarn build && yarn prisma generate && yarn prisma db push && yarn seed && yarn debug"
-    env_file:
-      - .env
-    ports:
-      - "5000:3000"
-    networks:
-      - back-end-tryout
-networks:
-  back-end-tryout:
-      name: back-end-solicitation-tryout 
-      driver: bridge
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: soltryout
+      MYSQL_PASSWORD: password
+      MYSQL_TCP_PORT: 7777
+    # networks:
+    #   - back-end-tryout
+#   api-solicitacao-tryout-mfs:
+#     depends_on:
+#       - mysql-solicitacao-tryout-mfs
+#     container_name: api-solicitacao-tryout-mfs
+#     build:
+#       context: ./
+#       dockerfile: Dockerfile
+#     restart: always
+#     command: bash -c "yarn build && yarn prisma generate && yarn prisma db push && yarn seed && yarn debug"
+#     env_file:
+#       - .env
+#     ports:
+#       - "5000:3000"
+#     networks:
+#       - back-end-tryout
+# networks:
+#   back-end-tryout:
+#     name: back-end-solicitation-tryout
+#     driver: bridge
