@@ -25,7 +25,7 @@ model Homologation {
   comment                String?
   fk_homologation_status Int
   status                 HomologationStatus @relation(fields: [fk_homologation_status], references: [id])
-  solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id])
+  solicitation           SolicitationTryout @relation(fields: [fk_solicitation], references: [id], onDelete: Cascade)
 
   @@map("homologation")
 }
@@ -53,7 +53,7 @@ model InjectionProcess {
   id_tryout       String             @unique
   proc_technician Json
   quantity        Int
-  tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id])
+  tryout          SolicitationTryout @relation(fields: [id_tryout], references: [id], onDelete: Cascade)
   feedstock       Feedstock?
   labor           Labor?
   mold            Mold?
@@ -68,7 +68,7 @@ model Feedstock {
   description          String           @db.VarChar(250)
   kg                   Float
   id_process_injection String           @unique
-  fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout])
+  fk_injection_process InjectionProcess @relation(fields: [id_process_injection], references: [id_tryout], onDelete: Cascade)
 
   @@map("feedstock")
 }
@@ -77,7 +77,7 @@ model Machine {
   id                   String           @id @default(uuid())
   model                String           @db.VarChar(250)
   id_injection_process String           @unique
-  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout], onDelete: Cascade)
 }
 
 model Labor {
@@ -85,7 +85,7 @@ model Labor {
   amount               Int
   description          String           @db.VarChar(250)
   id_injection_process String           @unique
-  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout], onDelete: Cascade)
 
   @@map("labor")
 }
@@ -95,7 +95,7 @@ model Mold {
   number_cavity        Int
   desc_mold            String           @db.VarChar(250)
   id_injection_process String           @unique
-  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout])
+  fk_process_injection InjectionProcess @relation(fields: [id_injection_process], references: [id_tryout], onDelete: Cascade)
 
   @@map("mold")
 }
