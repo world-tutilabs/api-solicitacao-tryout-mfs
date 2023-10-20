@@ -7,6 +7,7 @@ import { AddTryoutModel } from "../../../../domain/useCases/SolicitationTryout/N
 import { UpdateTryoutModel } from "../../../../domain/useCases/SolicitationTryout/New-Mold/update-tryout";
 import { PrismaHelper } from "../helpers/prisma-helper";
 import { IHomologateTryoutDTO } from "../../../../domain/models/IHomologateTryoutDTO";
+import { AppError } from "../../../../presentation/errors/AppError";
 
 export class TryoutMysqlRepository
   implements
@@ -16,9 +17,20 @@ export class TryoutMysqlRepository
     IFindByIdTryoutRepository
 {
   async add(tryoutData: AddTryoutModel): Promise<ISolicitationTryoutDTO> {
+    if (
+      !(
+        tryoutData.molde_familia === "true" ||
+        tryoutData.molde_familia === "false"
+      )
+    )
+      throw new Error("molde_familia deve ser 'true' ou 'false'");
+
     const result = await PrismaHelper.prisma.solicitationTryout.create({
       data: {
         code_sap: tryoutData.code_sap,
+        molde_familia: tryoutData.molde_familia
+          ? tryoutData.molde_familia
+          : undefined,
         desc_product: tryoutData.product_description,
         client: tryoutData.client,
         programmed_date: new Date(tryoutData.date),
@@ -95,13 +107,18 @@ export class TryoutMysqlRepository
   async list(
     limit?: number,
     offset?: number,
-    status?: number
+    status?: number,
+    reason?: number,
+    molde_familia?: any
   ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }> {
+    console.log(molde_familia);
+
     const result = await PrismaHelper.prisma.solicitationTryout.findMany({
       select: {
         id: true,
         number_tryout: true,
         code_sap: true,
+        molde_familia: true,
         desc_product: true,
         client: true,
         programmed_date: true,
@@ -165,9 +182,16 @@ export class TryoutMysqlRepository
       },
 
       where: {
-        homologation: {
-          fk_homologation_status: { notIn: 4 },
-        },
+        AND: [
+          {
+            homologation: {
+              fk_homologation_status: { notIn: 4 },
+            },
+          },
+          {
+            molde_familia: molde_familia ? molde_familia : undefined,
+          },
+        ],
       },
       orderBy: {
         number_tryout: "desc",
@@ -178,9 +202,16 @@ export class TryoutMysqlRepository
 
     const all = await PrismaHelper.prisma.solicitationTryout.count({
       where: {
-        homologation: {
-          fk_homologation_status: { notIn: 4 },
-        },
+        AND: [
+          {
+            homologation: {
+              fk_homologation_status: { notIn: 4 },
+            },
+          },
+          {
+            molde_familia: molde_familia ? molde_familia : undefined,
+          },
+        ],
       },
     });
 
@@ -197,6 +228,7 @@ export class TryoutMysqlRepository
         id: true,
         number_tryout: true,
         code_sap: true,
+        molde_familia: true,
         desc_product: true,
         client: true,
         programmed_date: true,
@@ -291,6 +323,7 @@ export class TryoutMysqlRepository
         id: true,
         number_tryout: true,
         code_sap: true,
+        molde_familia: true,
         desc_product: true,
         client: true,
         programmed_date: true,

@@ -25,7 +25,7 @@ interface IFeedstock {
   id_injection_process?: string;
 }
 
-export interface IInjectioinProcessDTO {
+export interface IInjectionProcessDTO {
   id?: string;
   id_tryout: string;
   proc_technician: Object;
@@ -45,11 +45,12 @@ export interface ISolicitationTryoutDTO {
   id: string;
   number_tryout: number;
   code_sap: string;
+  molde_familia?: string;
   desc_product: string;
   client: string;
   reason: IReasonDTO;
   code?: string;
   programmed_date: Date;
   homologation?: IHomologateTryoutDTO;
-  injectionProcess?: IInjectioinProcessDTO;
+  injectionProcess?: IInjectionProcessDTO;
 }

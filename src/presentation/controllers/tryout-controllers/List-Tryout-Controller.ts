@@ -7,9 +7,16 @@ export class ListTryoutController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { limit, offset, status, reason } = httpRequest.query;
+      const { limit, offset, status, reason, molde_familia } =
+        httpRequest.query;
 
-      const list = await this.listTryout.list(limit, offset, status, reason);
+      const list = await this.listTryout.list(
+        limit,
+        offset,
+        status,
+        reason,
+        molde_familia
+      );
 
       return ok(list);
     } catch (error) {

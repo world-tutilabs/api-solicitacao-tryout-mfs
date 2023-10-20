@@ -36,6 +36,7 @@ model SolicitationTryout {
   code_sap         String            @db.VarChar(250)
   desc_product     String            @db.VarChar(250)
   client           String            @db.VarChar(250)
+  molde_familia    molde_familia?    @default(false)
   reason           Reason            @relation(fields: [reasonId], references: [id])
   reasonId         Int
   code             String?
@@ -104,4 +105,9 @@ model Reason {
   id                 Int                  @id @default(autoincrement())
   description        String
   SolicitationTryout SolicitationTryout[]
+}
+
+enum molde_familia {
+  true
+  false
 }

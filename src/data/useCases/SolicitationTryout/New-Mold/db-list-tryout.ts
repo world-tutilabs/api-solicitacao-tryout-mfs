@@ -10,13 +10,15 @@ export class DbListTryout implements IListTryout {
     limit?: number,
     offset?: number,
     status?: number,
-    reason?: number
+    reason?: number,
+    molde_familia?: string
   ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }> {
     const tryout = await this.listTryoutRepository.list(
       limit,
       offset,
       status,
-      reason
+      reason,
+      molde_familia
     );
 
     return tryout;

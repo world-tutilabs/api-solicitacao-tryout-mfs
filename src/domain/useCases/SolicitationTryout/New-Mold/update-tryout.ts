@@ -29,6 +29,7 @@ export interface UpdateTryoutModel {
   id: string;
   code_sap: string;
   product_description: string;
+  molde_familia?: string;
   client: string;
   date: Date;
   reason: any;
