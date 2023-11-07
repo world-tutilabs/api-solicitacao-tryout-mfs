@@ -5,6 +5,7 @@ export interface IListTryoutRepository {
     limit?: number,
     offset?: number,
     status?: number,
-    reason?: number
+    reason?: number,
+    molde_familia?: string
   ): Promise<{ all: number; result: ISolicitationTryoutDTO[] }>;
 }
